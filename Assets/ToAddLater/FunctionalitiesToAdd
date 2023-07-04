@@ -1,0 +1,122 @@
+Double jump works flawlessly, just is primitve
+The code:
+        
+         if (grounded)
+         {
+             jumpCounter = 1;
+         }
+        
+         if (jumpCounter != 0 && Input.GetKeyDown(KeyCode.E) && readyToJump)
+         {
+             jumpCounter--;
+             
+             Jump();
+ 
+             if (jumpCounter == 1)
+             {
+                 readyToJump = true;
+                 rb.drag = groundDrag;
+             }
+ 
+             if (jumpCounter == 0)
+             {
+                 Invoke(nameof(ResetJump),jumpCooldown);
+             }
+         }
+         
+         
+             //old dash system, worked but deemed rather useless since i cannot aply Invoke
+          /*   public void dash()
+             {
+                 if (readyDash) {
+                     
+                     Vector3 forceToAdd = playerObj.forward;    
+         
+                 Vector3 direction = getDirection(forceToAdd);
+         
+                 rb.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
+         
+                 readyDash = false;
+                 }
+                 
+         }*/
+         
+         //used for old dash system
+            /* Vector3 getDirection(Vector3 dir)
+             {
+                 if (firstDir)
+                 {
+                     finalDir = dir;
+                     firstDir = false;
+                 }
+         
+                 return finalDir;
+             }*/
+             
+             
+             
+             Attack system to implement:
+             
+             /*basic example
+             
+             hitInfo = the object we are hiting;
+             enemy = layerMask that sees if we hit a specific object;
+             
+             bool hit = Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, Width * 0.5f + 0.2f, enemy);
+             if (hit) {
+               MyEnemy enemy = hitInfo.collider.GetComponent<MyEnemy>();
+               enemy.TakeDamage(5);
+             }
+             */
+             
+             
+             Make a better way to check all directions:
+             public Entity checkEntityHit(LayerMask entityMask)
+                {
+             
+                    if (Physics.Raycast(transform.position,Vector3.forward,out entityHit,5f,entityMask) || Physics.Raycast(transform.position,Vector3.left,out entityHit,5f,entityMask) || Physics.Raycast(transform.position,Vector3.right,out entityHit,5f,entityMask) || Physics.Raycast(transform.position,Vector3.back,out entityHit,5f,entityMask))
+                    {
+                        Entity currentEntity = entityHit.collider.GetComponent<Entity>();
+             
+                        return currentEntity;
+                    }
+             
+                    return null;
+                }
+
+
+
+//old pf
+ //broken for the time being
+
+   /* public void followPlayer()
+    {
+        startNode = transform.position;
+
+        endNode = targetPosition.position;
+
+        lastStart = startNode;
+        lastEnd = endNode;
+
+        if (behaivour.getAgro())
+        {
+            if (!first)
+            {
+                first = true;
+                AI.prepareMap(startNode, endNode, searchRadius);
+            }
+
+            AI.executeSearch();
+
+            if(AI.goalReached)
+            {
+                AI.getPath();
+
+                foreach(Node node in shortestPath)
+                {
+                    behaivour.follow(node.position);
+                }
+            }
+        }
+      //  else first = false;
+    }*/

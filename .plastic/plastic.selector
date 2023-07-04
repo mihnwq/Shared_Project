@@ -1,0 +1,4 @@
+repository "Brawly@infoed_organization@cloud"
+  path "/"
+    br "/main"
+    co "/main"
