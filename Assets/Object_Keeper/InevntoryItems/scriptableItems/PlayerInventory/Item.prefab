@@ -472,7 +472,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1353773267299278724}
-        m_TargetAssemblyTypeName: InventoryItemController, Assembly-CSharp
+        m_TargetAssemblyTypeName: InventoryUseHandler, Assembly-CSharp
         m_MethodName: useItem
         m_Mode: 1
         m_Arguments:

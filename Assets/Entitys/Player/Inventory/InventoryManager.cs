@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
-    InventoryUseHandler[] inventory;
+   public InventoryUseHandler[] inventory;
 
     public int[] amount = new int[10];
 
@@ -19,14 +19,25 @@ public class InventoryManager : MonoBehaviour
     public Transform itemContent;
     public GameObject inventoryItem;
 
-    public Toggle enableRemove;
+    public Item potionItem;
+
+    public Animator animator;
+
+    public string healingString;
+
+    public float healingTime;
 
     public void Awake()
     {
         instance = this;
     }
 
-    int currentIndex = 0;
+    public void Start()
+    {
+      //  inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+    }
+
+   public int currentIndex = 0;
 
     public void add(Item item)
     {
@@ -47,16 +58,19 @@ public class InventoryManager : MonoBehaviour
              itemName.text = item.itemName;
              itemImage.sprite = item.icon;
 
-         //   inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+        //    inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
 
-           // inventory[currentIndex].addItem(items[currentIndex]);
+            //  inventory[currentIndex].addItem(items[currentIndex]);
 
-            currentIndex++;
+
+           // inventory[currentIndex].addItem(item);
+
+         //   currentIndex++;
         }
 
         amount[item.id]++;
 
-       
+
 
         setItems();
     }
@@ -67,7 +81,11 @@ public class InventoryManager : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        //   inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+
+        
+
+        if (Input.GetKeyDown(KeyCode.I))
         {
             /*   if(isOpen)
                {
@@ -88,7 +106,58 @@ public class InventoryManager : MonoBehaviour
             inv.SetActive(isOpen);
         }
 
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+         
+
+            healingHotKey();
+
+        }
+
         ChainVars.onInventory = isOpen;
+    }
+
+    bool canUsePostion = true;
+
+    int index;
+
+    public void healingHotKey()
+    {
+        if (amount[potionItem.id] > 0 && canUsePostion)
+        {
+
+            canUsePostion = false;
+
+            index = items.IndexOf(potionItem);
+
+            inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+
+            inventory[index].removeItem(items[index]);
+
+            animator.SetBool(healingString, true);
+
+            Invoke(nameof(heal), healingTime);
+        }
+    }
+
+    public void heal()
+    {
+
+        useHotKey(potionItem);
+      
+        animator.SetBool(healingString, false);
+
+        canUsePostion = true;
+    }
+
+    public void useHotKey(Item item)
+    {
+        switch (item.type)
+        {
+            case Item.itemType.potion:
+                link.instance.health += 10;
+                break;
+        }
     }
 
     public void setItems()

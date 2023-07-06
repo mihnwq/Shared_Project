@@ -17,6 +17,8 @@ public class Item : ScriptableObject
 
     public itemType type;
 
+    int index = 0;
+
 
     public enum itemType
     {

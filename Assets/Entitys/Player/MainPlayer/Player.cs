@@ -545,6 +545,7 @@ public class Player : Entity
         speed = desiredMoveSpeed;
         speedChangeFacotr = 1f;
         keepMomentum = false;
+
     }
 
     //don't touch here
@@ -709,7 +710,9 @@ public class Player : Entity
     }
 
     private string throwingAnimation = "isThrowingKnife";
-    private string meleAttackAnimation = "isAttackingMele";
+
+   // private string meleAttackAnimation = "isAttackingMele";
+
     private string stunningAnimation = "isUsingStun";
 
     public void addAttackAnimation()
@@ -723,14 +726,7 @@ public class Player : Entity
             anim.SetBool(throwingAnimation, false);
         }
 
-        if(isAttacking)
-        {
-            anim.SetBool(meleAttackAnimation, true);
-        }
-        else
-        {
-            anim.SetBool(meleAttackAnimation, false);
-        }
+      
 
         if(ps.isStunning)
         {

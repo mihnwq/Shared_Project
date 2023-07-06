@@ -18,7 +18,7 @@ public class InventoryUseHandler : MonoBehaviour
         instance = this;
     }
 
-    public void removeItem()
+    public void removeItem(Item item)
     {
         if(InventoryManager.instance.amount[item.id] > 0)
         {
@@ -43,10 +43,6 @@ public class InventoryUseHandler : MonoBehaviour
     public void useItem()
     {
 
-        
-
-        if(ChainVars.onInventory)
-        {
             if (canUse())
             {
                 switch (item.type)
@@ -57,13 +53,15 @@ public class InventoryUseHandler : MonoBehaviour
                         link.instance.health += 10;
                         break;
                 }
-                removeItem();
+                removeItem(item);
 
             }
-        }
+        
        
        
     }
+
+   
 
     public bool used = false;
 
