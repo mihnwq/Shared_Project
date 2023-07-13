@@ -11,10 +11,15 @@ public class InventoryUseHandler : MonoBehaviour
 
     Item item;
 
+
     public static InventoryUseHandler instance;
 
+
+    //when not using the inventory and on another scene please df to commennt the animator
     public void Awake()
     {
+      //  animator = InventoryManager.instance.animator;
+
         instance = this;
     }
 
@@ -49,8 +54,12 @@ public class InventoryUseHandler : MonoBehaviour
                 {
 
                     case Item.itemType.potion:
-                        used = true;
-                        link.instance.health += 10;
+
+                       
+                         used = true;
+                         link.instance.health += 10;
+                        
+
                         break;
                 }
                 removeItem(item);
@@ -62,7 +71,6 @@ public class InventoryUseHandler : MonoBehaviour
     }
 
    
-
     public bool used = false;
 
     public bool canUse()

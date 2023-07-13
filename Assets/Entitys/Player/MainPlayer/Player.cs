@@ -41,12 +41,15 @@ public class Player : Entity
 
     bool playerExitSlope = false;
 
+    public Item knifeItem;
+
     Jumping jump;
     Crouching cr;
     public Sliding sd;
     Dashing dash;
     public ProjectileThrowing pt;
     public PlayerStun ps;
+    public PlayerKnockBackAttack pka;
 
 
     public Projectile playerProjectile;
@@ -111,13 +114,6 @@ public class Player : Entity
 
         stamina = maxStamina;
 
-        LVL = 1;
-
-        nextLVL = LVL * 10;
-
-        EXP = 0;
-
-        EXPgiven = 0;
 
         entityDamage = 10;
         entityDefense = 2;
@@ -143,21 +139,7 @@ public class Player : Entity
         pt.init();
     }
 
-    public void handleLVL()
-    {
-        if(EXP >= nextLVL)
-        {
-            LVL++;
-
-            EXP = 0;
-
-            nextLVL = LVL * 10;
-
-            entityDefense++;
-            entityDamage++;
-
-        }
-    }
+  
 
 
     //attack aim related stuff for the first 2 camera positions
@@ -213,14 +195,13 @@ public class Player : Entity
 
                 checkGrounded();
 
+                if(!pka.isKnocking)
                 Move();
 
                 checkCommands();
 
                 base.Update();
 
-
-                handleLVL();
 
                 updateStats();
             }
@@ -294,6 +275,13 @@ public class Player : Entity
         updateAttackPoint();
 
         updateAimObject();
+
+       // handleThrows();
+    }
+
+    public void handleThrows()
+    {
+        pt.totalThrows = InventoryManager.instance.amount[knifeItem.id];
     }
 
     bool transition = true;
@@ -441,6 +429,9 @@ public class Player : Entity
                 playerProjectile.execute();
 
                 pt.Throw(Vector3.zero);
+
+                if (InventoryManager.instance.amount[knifeItem.id] > 0)
+                InventoryManager.instance.removeItemFromInventory(knifeItem);
             }
             
 
@@ -560,6 +551,14 @@ public class Player : Entity
     {
         previousAnimation = currentAnimation;
 
+      /*  if(pka.isKnocking)
+        {
+            state = movementState.idle;
+
+            currentAnimation = "isKicking";
+        }
+        else
+        */
         if (dashing)
         {
             state = movementState.dash;
@@ -698,7 +697,10 @@ public class Player : Entity
     
     public void addAnimation()
     {
-        
+
+        if (!pka.isKnocking)
+        {
+            
             if (currentAnimation != previousAnimation)
             {
                 anim.SetBool(previousAnimation, false);
@@ -706,7 +708,12 @@ public class Player : Entity
 
             anim.SetBool(currentAnimation, true);
 
-        addAttackAnimation();
+            addAttackAnimation();
+        }
+        else
+        {
+            anim.SetBool(previousAnimation, false);
+        }
     }
 
     private string throwingAnimation = "isThrowingKnife";
@@ -849,30 +856,30 @@ public class Player : Entity
 
     //Temporarry saving system applied only to the player
 
-   /* public void savePlayer()
-    {
-        SaveSystem.savePlayer(this);
-    }
+    /* public void savePlayer()
+     {
+         SaveSystem.savePlayer(this);
+     }
+
+     public void loadPlayer()
+     {
+         PlayerData data = SaveSystem.loadPlayer();
+
+         LVL = data.level;
+         link.instance.health = data.helath;
+
+         Vector3 position;
+         position.x = data.position[0];
+         position.y = data.position[1];
+         position.z = data.position[2];
+
+         transform.position = position;
+     }*/
+
+    //  public Vector3 aimOffset = new Vector3(0, 2);
+
    
-    public void loadPlayer()
-    {
-        PlayerData data = SaveSystem.loadPlayer();
 
-        LVL = data.level;
-        link.instance.health = data.helath;
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-
-        transform.position = position;
-    }*/
-
-  //  public Vector3 aimOffset = new Vector3(0, 2);
-
-   
-
-  
 
 }

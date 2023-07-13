@@ -107,7 +107,7 @@ public class Enemy : Entity
 
         // rb.isKinematic = nearPlayer || onSlope();
 
-        rb.isKinematic = true;
+      //  rb.isKinematic = true;
     }
 
     public string currentAnimation, previousAnimation;

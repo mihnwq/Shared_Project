@@ -14,7 +14,9 @@ public class MerchantShop : MonoBehaviour
 
     public List<Item> shopContent = new List<Item>();
 
-    MerchantButton[] merchantItems;
+    public MerchantButtonBuy[] merchantItemsToBuy;
+
+    public MerchantButtonSell[] merchantItemsToSell;
 
     public Transform content;
 
@@ -36,11 +38,8 @@ public class MerchantShop : MonoBehaviour
 
             getShopItems();
         }
-        else
-        {
-           
-        }
-        
+
+
 
         
     }
@@ -49,20 +48,28 @@ public class MerchantShop : MonoBehaviour
    
     public void getShopItems()
     {
+
+        currentIndex = 0;
+
         foreach (Item item in shopContent)
         {
             GameObject obj = Instantiate(mainItem, content);
 
-
-            var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+            var itemCost = obj.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
 
             var itemImage = obj.transform.Find("ItemSprite").GetComponent<Image>();
 
-            merchantItems = content.GetComponentsInChildren<MerchantButton>();
+            merchantItemsToBuy = content.GetComponentsInChildren<MerchantButtonBuy>();
 
-            merchantItems[currentIndex++].setItem(item); 
+            merchantItemsToBuy[currentIndex].setItem(item);
 
-            itemName.text = item.itemName;
+            merchantItemsToSell = content.GetComponentsInChildren<MerchantButtonSell>();
+
+            merchantItemsToSell[currentIndex].setItem(item);
+
+            currentIndex++;
+
+            itemCost.text = item.price.ToString();
             itemImage.sprite = item.icon;
         }
     }

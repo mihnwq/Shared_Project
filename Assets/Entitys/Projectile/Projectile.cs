@@ -23,6 +23,14 @@ public class Projectile : Weapon
 
     public float originalWeaponDamage;
 
+    public bool canHome;
+
+    public GameObject actualProjectile;
+
+    public HomingProjectile homing;
+
+
+
     public void Start()
     {
         originalHomingSpeed = homingSpeed;
@@ -34,76 +42,30 @@ public class Projectile : Weapon
 
     public void Update()
     {
-        if(homingFactor > 0)
-        home(homingSpeed);
+        if(canHome)
+        {
+           //  homing.updateSize(homingFactor);
+
+            //  homing.home(homingSpeed);
+
+            home(homingSpeed);
+        }
 
         if (currentLifeTime > 0)
             currentLifeTime -= Time.deltaTime;
 
-        if (currentLifeTime < 0)
-            Destroy(gameObject);
+       if (currentLifeTime < 0)
+            Destroy(actualProjectile);
     }
-
-    public override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-
-        Destroy(gameObject);
-    }
-
-    public override void OnTriggerStay(Collider other)
-    {
-      //  base.OnTriggerStay(other);
-    }
-
-    Entity target = null;
 
     public void home(float speed)
-     {
-         Collider[] colliders = Physics.OverlapSphere(transform.position , homingFactor);
+    {
 
+        Collider[] colliders = Physics.OverlapSphere(transform.position, homingFactor);
 
         Collider[] filteredColliders = colliders.Where(collider => collider.CompareTag(hitID)).ToArray();
 
-         if (filteredColliders.Length > 0 && target == null)
-            {
-                Collider monsterCollider = filteredColliders[0];
-
-                GameObject entity = monsterCollider.gameObject;
-
-              //  Entity currentEntity = entity.GetComponent<Entity>();
-
-               target = entity.GetComponent<Entity>();
-        }
-
-         if(target != null)
-        {
-            transform.LookAt(target.centre.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, target.centre.transform.position, speed * Time.deltaTime);
-        }
-    }
-
-    //The tries i had for the homing system to get better:
-    /*
-     
-        /*    foreach (Collider collider in colliders)
-             {
-                 if (collider.CompareTag(hitID))
-                 {
-
-                    GameObject entity = collider.gameObject;
-
-                    Entity currentEntity = entity.GetComponent<Entity>();
-
-                    transform.LookAt(currentEntity.centre.transform.position);
-                    transform.position = Vector3.MoveTowards(transform.position, currentEntity.centre.transform.position, speed * Time.deltaTime);
-                }
-             }*/
-
-
-    //   Collider[] filteredColliders = colliders.Where(collider => collider.CompareTag(hitID)).ToArray();
-
-    /*  if (filteredColliders.Length > 0)
+     if (filteredColliders.Length > 0)
         {
             Collider monsterCollider = filteredColliders[0];
 
@@ -113,73 +75,32 @@ public class Projectile : Weapon
 
             transform.LookAt(currentEntity.centre.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, currentEntity.centre.transform.position, speed * Time.deltaTime);
-        }*/
-
-    /*
-     * 
-     *  int left = 0;
-
-        int right = colliders.Length - 1;
-
-        while(left <= right && target == null)
-        {
-            int middle = (left + right) / 2;
-
-            if (colliders[middle].tag == hitID)
-            {
-                GameObject objectFound = colliders[middle].gameObject;
-
-                target = objectFound.GetComponent<Entity>();
-            }
-            else if (string.Compare(colliders[middle].tag, hitID) < 0) 
-            {
-                left = middle + 1;
-            }
-            else
-            {
-                right = middle - 1;
-            }
         }
 
-        if(target != null)
-        {
-            transform.LookAt(target.centre.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, target.centre.transform.position, speed * Time.deltaTime);
-        }
-     * 
-     */
+    }
+   
+    public override void OnTriggerEnter(Collider other)
+    {
 
+            base.OnTriggerEnter(other);
 
-    /*
-     * 
-     *  bool found = false;
-     *   if (!found)
-        {
-            for (int i = 0; i < colliders.Length && !found; i++)
-            {
-                if (colliders[i].CompareTag(hitID))
-                {
-                    found = true;
+      
+       if(other.gameObject.name != "HomingCenter")
+          Destroy(actualProjectile);
 
-                    GameObject entity = colliders[i].gameObject;
+       // Debug.Log(other.gameObject.name);
+    }
 
-                    Entity currentEntity = entity.GetComponent<Entity>();
+    public override void OnTriggerStay(Collider other)
+    {
+      //  base.OnTriggerStay(other);
+    }
 
-                    target = currentEntity;
-                }
-            }
-        }
-        else
-        {
-            transform.LookAt(target.centre.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, target.centre.transform.position, speed * Time.deltaTime);
-        }
-     *  
+   
 
-     * 
-     */
+    
 
-    public float chargeLevel = 0f;
+     public float chargeLevel = 0f;
       public float maxCharge;
       public float chargeSpeed;
 

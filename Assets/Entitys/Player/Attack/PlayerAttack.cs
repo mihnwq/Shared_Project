@@ -8,6 +8,8 @@ using UnityEngine;
 public class PlayerAttack : EntityAttack
 {
 
+    public AnimationWeightHandler weight;
+
     public Animator animator;
 
     public float originalAttackDuration;
@@ -48,7 +50,9 @@ public class PlayerAttack : EntityAttack
 
         originalAttackCooldown = attackCooldown;
 
-        expireTime = maxExpireTime;
+         expireTime = maxExpireTime;
+
+
     }
 
     public void setAllFalse()
@@ -78,6 +82,9 @@ public class PlayerAttack : EntityAttack
 
         if (Input.GetMouseButtonDown(0) && !isAttacking && numberOfClicks < 3 && canClick && !onUiState())
         {
+
+            weight.layerLerp = weight.maxLayerWeight;
+
              if(numberOfClicks == 0)
              {
                 animator.SetBool(attackAnimations[0], true);
@@ -164,7 +171,9 @@ public class PlayerAttack : EntityAttack
 
         if (expireTime <= 0)
         {
-            expireTime = maxExpireTime;
+             expireTime = maxExpireTime;
+
+           // expireTime = 0;
 
             setAllFalse();
 

@@ -23,7 +23,9 @@ public class InventoryManager : MonoBehaviour
 
     public Animator animator;
 
-    public string healingString;
+    //  public string healingString;
+
+    public string[] animationItem = new string[20];
 
     public float healingTime;
 
@@ -34,6 +36,8 @@ public class InventoryManager : MonoBehaviour
 
     public void Start()
     {
+        animationItem[0] = "isDrinkingPotion";
+
       //  inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
     }
 
@@ -87,20 +91,7 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            /*   if(isOpen)
-               {
-
-                   isOpen = false;
-
-                   inv.SetActive(false);
-               }
-               else
-               {
-
-                   isOpen = true;
-
-                   inv.SetActive(true);
-               }*/
+           
 
             isOpen = !isOpen;
             inv.SetActive(isOpen);
@@ -108,16 +99,16 @@ public class InventoryManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.H))
         {
-         
-
             healingHotKey();
 
         }
 
         ChainVars.onInventory = isOpen;
+
+       
     }
 
-    bool canUsePostion = true;
+   public bool canUsePostion = true;
 
     int index;
 
@@ -134,7 +125,7 @@ public class InventoryManager : MonoBehaviour
 
             inventory[index].removeItem(items[index]);
 
-            animator.SetBool(healingString, true);
+            animator.SetBool(animationItem[0], true);
 
             Invoke(nameof(heal), healingTime);
         }
@@ -145,7 +136,7 @@ public class InventoryManager : MonoBehaviour
 
         useHotKey(potionItem);
       
-        animator.SetBool(healingString, false);
+        animator.SetBool(animationItem[0], false);
 
         canUsePostion = true;
     }
@@ -175,6 +166,14 @@ public class InventoryManager : MonoBehaviour
         items.Remove(item);
     }
 
+    public void removeItemFromInventory(Item item)
+    {
+        int  index = items.IndexOf(item);
+
+        inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+
+        inventory[index].removeItem(items[index]);
+    }
   
 
    

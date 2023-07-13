@@ -27,12 +27,16 @@ public class ProjectileThrowing : MonoBehaviour
 
     public Vector3 throwDirection;
 
+    public bool extractFromChildren;
+
     public void init()
     {
         actualDirection = attackPoint.forward;
 
         throwDirection = actualDirection;
     }
+
+    Rigidbody projectileRb;
 
     //only if needed, we added a multiplier
     public void Throw(Vector3 position_multiplier)
@@ -52,7 +56,10 @@ public class ProjectileThrowing : MonoBehaviour
 
                 GameObject projectile = Instantiate(objectToThrow, attackPoint.position + position_multiplier, attackPoint.rotation);
 
-                Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+                if(!extractFromChildren)
+                  projectileRb = projectile.GetComponent<Rigidbody>();
+                else projectileRb = projectile.GetComponentInChildren<Rigidbody>();
+               
 
                 Projectile current_projectile = projectile.GetComponent<Projectile>();
 
@@ -71,6 +78,9 @@ public class ProjectileThrowing : MonoBehaviour
             }
         }
 
+
+        if (totalThrows < 0)
+            totalThrows = 0;
     }
 
     public void ResetThrow()

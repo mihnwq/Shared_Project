@@ -35,7 +35,7 @@ public class ChainVars
 
     public static bool playerIsLocked = false;
 
-  
+    public static bool isKnocking = false;
 
      //functions to know and update if the entity is facing a slope and if so updating the direction
      public static void UpdateDir(Vector3 sl)

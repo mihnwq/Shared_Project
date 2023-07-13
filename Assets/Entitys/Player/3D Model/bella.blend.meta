@@ -36,8 +36,8 @@ ModelImporter:
       name: IdleFinal
       takeName: Scene
       internalID: -623603649343465320
-      firstFrame: 2
-      lastFrame: 44
+      firstFrame: 9
+      lastFrame: 61
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -65,8 +65,8 @@ ModelImporter:
       name: RunningFinal
       takeName: Scene
       internalID: -1609281748187839663
-      firstFrame: 65
-      lastFrame: 137
+      firstFrame: 90
+      lastFrame: 192
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -94,8 +94,8 @@ ModelImporter:
       name: JumpingFinal
       takeName: Scene
       internalID: 723096430288179899
-      firstFrame: 160
-      lastFrame: 266
+      firstFrame: 220
+      lastFrame: 356
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -123,8 +123,8 @@ ModelImporter:
       name: CrouchIdleFinal
       takeName: Scene
       internalID: 1963079803359675471
-      firstFrame: 296
-      lastFrame: 339
+      firstFrame: 396
+      lastFrame: 449
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -152,8 +152,8 @@ ModelImporter:
       name: CrouchWalkingFinal
       takeName: Scene
       internalID: 6763395943919261652
-      firstFrame: 370
-      lastFrame: 421
+      firstFrame: 489
+      lastFrame: 561
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -181,8 +181,8 @@ ModelImporter:
       name: WalkingFinal
       takeName: Scene
       internalID: 3634459496785043864
-      firstFrame: 442
-      lastFrame: 493
+      firstFrame: 592
+      lastFrame: 663
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -210,8 +210,8 @@ ModelImporter:
       name: SlidingFinal
       takeName: Scene
       internalID: -2055551850835267871
-      firstFrame: 523
-      lastFrame: 588
+      firstFrame: 703
+      lastFrame: 783
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -239,8 +239,8 @@ ModelImporter:
       name: RollingFinal
       takeName: Scene
       internalID: 9042890004209222968
-      firstFrame: 611
-      lastFrame: 724
+      firstFrame: 816
+      lastFrame: 969
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -268,8 +268,8 @@ ModelImporter:
       name: DashingFinal
       takeName: Scene
       internalID: 4926170107992661898
-      firstFrame: 743
-      lastFrame: 832
+      firstFrame: 1003
+      lastFrame: 1086
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -297,8 +297,8 @@ ModelImporter:
       name: HeavyAttackFinal
       takeName: Scene
       internalID: 7896679309779607623
-      firstFrame: 851
-      lastFrame: 915
+      firstFrame: 1136
+      lastFrame: 1206
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -326,8 +326,8 @@ ModelImporter:
       name: Combo1_Attack1
       takeName: Scene
       internalID: -3545652582204683642
-      firstFrame: 915
-      lastFrame: 960
+      firstFrame: 1225
+      lastFrame: 1290
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -355,8 +355,8 @@ ModelImporter:
       name: Combo1_Attack2
       takeName: Scene
       internalID: -6995667271108594556
-      firstFrame: 973
-      lastFrame: 1028
+      firstFrame: 1308
+      lastFrame: 1377
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -384,8 +384,8 @@ ModelImporter:
       name: Combo1_Attack3
       takeName: Scene
       internalID: 5525510706675683219
-      firstFrame: 1052
-      lastFrame: 1122
+      firstFrame: 1634
+      lastFrame: 1703
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -413,8 +413,8 @@ ModelImporter:
       name: DyingFinal
       takeName: Scene
       internalID: 5703688115460763318
-      firstFrame: 1641
-      lastFrame: 1722
+      firstFrame: 2229
+      lastFrame: 2355
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -442,8 +442,8 @@ ModelImporter:
       name: DrinkingPotionFinal
       takeName: Scene
       internalID: -2729887342897051712
-      firstFrame: 1735
-      lastFrame: 1814
+      firstFrame: 2373
+      lastFrame: 2563
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -471,8 +471,8 @@ ModelImporter:
       name: Combo2_Attack1
       takeName: Scene
       internalID: 6651284380104590841
-      firstFrame: 1135
-      lastFrame: 1211
+      firstFrame: 1519
+      lastFrame: 1615
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -497,11 +497,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Combo2_Attack2
+      name: Kick1
       takeName: Scene
       internalID: 837255572769927147
-      firstFrame: 1225
-      lastFrame: 1265
+      firstFrame: 1406
+      lastFrame: 1501
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -526,11 +526,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Combo2_Attack3
+      name: Kick2
       takeName: Scene
       internalID: -7705964590769475085
-      firstFrame: 1280
-      lastFrame: 1340
+      firstFrame: 1728
+      lastFrame: 1828
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -558,8 +558,8 @@ ModelImporter:
       name: GrabbingFinal
       takeName: Scene
       internalID: -1708721065880324479
-      firstFrame: 1500
-      lastFrame: 1571
+      firstFrame: 2004
+      lastFrame: 2120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -587,8 +587,8 @@ ModelImporter:
       name: KnifeThrowFinal
       takeName: Scene
       internalID: 9206128091354402827
-      firstFrame: 1592
-      lastFrame: 1629
+      firstFrame: 2151
+      lastFrame: 2212
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -616,16 +616,16 @@ ModelImporter:
       name: StanceFinal
       takeName: Scene
       internalID: -8169380943463088221
-      firstFrame: 1380
-      lastFrame: 1440
+      firstFrame: 1901
+      lastFrame: 1968
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

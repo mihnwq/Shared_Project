@@ -7,21 +7,21 @@ using UnityEngine;
 
 public class KnockbackEffect : MonoBehaviour
 {
-    public bool knockingStopped = false;
+    public bool isKnocking = false;
 
     public string hitID;
 
-    public Transform bodyFromToAplyForce;
+    public Entity wielder;
 
     public float knockForce;
 
-    public Animator animator;
+    public bool onlyOnce = false;
 
-    public string animationToAplyKnockback;
+
 
     public void OnTriggerStay(Collider other)
     {
-        if(other.tag == hitID && !knockingStopped)
+        if(other.tag == hitID && isKnocking && !onlyOnce)
         {
             GameObject entity = other.gameObject;
 
@@ -29,23 +29,39 @@ public class KnockbackEffect : MonoBehaviour
 
             knockBack(ent.rb);
 
-            knockingStopped = true;
-        }
+            isKnocking = false;
 
+            onlyOnce = true;
+        }
         
     }
 
+
+    public float knockingTime = 0;
+
+    public float maxKnockingTime;
+
     public void Update()
     {
-      
-        bool apllyKnockback = animator.GetBool(animationToAplyKnockback);
+        //remember to put here a condition tho
 
-        knockingStopped = !apllyKnockback;
+        if (knockingTime > 0)
+            knockingTime -= Time.deltaTime;
+
+        isKnocking = knockingTime > 0;
+
+        if (!isKnocking)
+            onlyOnce = false;
+    }
+
+    public void initiateKnicking()
+    {
+        knockingTime = maxKnockingTime;
     }
 
     public void knockBack(Rigidbody rb)
     {
-        rb.AddForce(bodyFromToAplyForce.forward * knockForce, ForceMode.Impulse);
+        rb.AddForce(wielder.entityObj.forward * knockForce, ForceMode.Impulse);
     }
 
 }

@@ -20,7 +20,6 @@ public class PlayerOrbit : MonoBehaviour
 
     public bool start = true;
 
-    
      
     public void checkOrientation()
     {
@@ -42,7 +41,7 @@ public class PlayerOrbit : MonoBehaviour
             isLocked = false;
         }
 
-        if (!ChainVars.playerSliding)
+        if (!ChainVars.playerSliding /* && !ChainVars.isKnocking*/)
         {
             if (isLocked)
             {
@@ -71,27 +70,29 @@ public class PlayerOrbit : MonoBehaviour
         // viewDir.x += (float)offset;
 
 
-        if(!isLocked)
-        {
-             current_orientation.forward = viewDir.normalized;
-
-        //    float horizontal = Input.GetAxis("Horizontal");
-         //   float vertical = Input.GetAxis("Vertical");
-
-            float horizontal = CustomInputManager.GetAxisRaw("Horizontal");
-            float vertical = CustomInputManager.GetAxisRaw("Vertical");
-
-            Vector3 inputDir = current_orientation.forward * vertical + current_orientation.right * horizontal;
-
-            if (inputDir != Vector3.zero)
-                playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-        }
-        else
-        {
-                current_orientation.forward = Vector3.Slerp(current_orientation.forward, viewDir.normalized, lockOnSpeed);
-        }
-
        
+
+            if (!isLocked)
+            {
+                current_orientation.forward = viewDir.normalized;
+
+                //    float horizontal = Input.GetAxis("Horizontal");
+                //   float vertical = Input.GetAxis("Vertical");
+
+                float horizontal = CustomInputManager.GetAxisRaw("Horizontal");
+                float vertical = CustomInputManager.GetAxisRaw("Vertical");
+
+                Vector3 inputDir = current_orientation.forward * vertical + current_orientation.right * horizontal;
+
+                if (inputDir != Vector3.zero && !ChainVars.playerSliding/* && !ChainVars.isKnocking*/)
+                    playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            }
+            else
+            {
+                current_orientation.forward = Vector3.Slerp(current_orientation.forward, viewDir.normalized, lockOnSpeed);
+            }
+
+        
 
 
         ChainVars.playerIsLocked = isLocked;

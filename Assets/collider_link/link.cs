@@ -25,6 +25,9 @@ public class link : Entity
     {
         entity.health = health;
         hasEyeFrames = entity.hasEyeFrames;
+
+        if (health > entity.maxHealth)
+            health = entity.maxHealth;
     }
 
 }

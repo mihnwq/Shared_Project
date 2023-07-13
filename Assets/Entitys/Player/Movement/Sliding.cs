@@ -30,7 +30,10 @@ public class Sliding
         ro = new Rotate_Object(playerObj);
     }
 
-    public float maxSlideTime = 0.75f;
+     public float maxSlideTime = 0.75f;
+
+   // public float maxSlideTime = 10f;
+
     public float slideForce = 50f;
     public float sliderTimer;
 
@@ -101,13 +104,18 @@ public class Sliding
 
         cu.rotateCollider(angle, playerObj);
 
-       
+        Debug.Log(forwardDirection);
+
 
         if (sliderTimer <= 0)
             stopSlide();
     }
 
-   
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(playerObj.position + new Vector3(0, 0.3f, 0), playerObj.forward);
+    }
 
     public void stopSlide()
     {

@@ -14,31 +14,60 @@ public class Merchant : BasicNpc, IInteractible
 
     public List<Item> currentMerchantShop = new List<Item>();
 
+    public Animator animator;
+
     public void interact()
     {
         
     }
 
-    public override void Update()
+    public string[] animations = new string[5];
+
+    public void Start()
     {
-        base.Update();
+        animations[0] = "idle";
 
-        if(isCloseFromPlayer)
-        {
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                ChainVars.onTrade = !ChainVars.onTrade;
+        animations[1] = "showcasing";
 
-                shopCanvas.gameObject.SetActive(ChainVars.onTrade);
+        animations[2] = "thanking";
 
-                if(ChainVars.onTrade)
-                {
-                    shop.loadShopItems(currentMerchantShop);
-                }
-            }
-        }
+        animations[3] = "talking";
     }
 
+    public override void Update()
+    {
+          base.Update();
 
+          if(isCloseFromPlayer)
+          {
+
+            setOneTrueOneFalse(1, 0);
+
+              if(Input.GetKeyDown(KeyCode.Q))
+              {
+                  ChainVars.onTrade = !ChainVars.onTrade;
+
+                  shopCanvas.gameObject.SetActive(ChainVars.onTrade);
+
+                  if(ChainVars.onTrade)
+                  {
+                      shop.loadShopItems(currentMerchantShop);
+                  }
+              }
+          }
+          else
+        {
+            setOneTrueOneFalse(0, 3);
+        }
+
+        
+    }
+
+    public void setOneTrueOneFalse(int index1, int index2)
+    {
+        animator.SetBool(animations[index1], true);
+
+        animator.SetBool(animations[index2], false);
+    }
 }
 
