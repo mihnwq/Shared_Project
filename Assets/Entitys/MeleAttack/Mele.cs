@@ -22,6 +22,8 @@ public class Mele : Weapon
         {
             if (isAttacking)
             {
+
+                
                 base.OnTriggerStay(other);
                 //    onlyOnce = false;
             }

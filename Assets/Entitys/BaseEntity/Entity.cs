@@ -81,21 +81,23 @@ public class Entity : MonoBehaviour
    public virtual void Start()
    {
 
-      /*  EntityData data = SaveSystem.load(ChainVars.saveID);
+        /*  EntityData data = SaveSystem.load(ChainVars.saveID);
 
-        health = data.helath;
+          health = data.helath;
 
-        Vector3 position;
+          Vector3 position;
 
-        position.x = data.position[0];
+          position.x = data.position[0];
 
-        position.y = data.position[1];
+          position.y = data.position[1];
 
-        position.z = data.position[2];
-      */
+          position.z = data.position[2];
+        */
 
-       
-   }
+        if (useGroundObject)
+            groudObject = GroundCheck;
+        else groudObject = transform;
+    }
 
     public float lastHealth;
 
@@ -147,28 +149,37 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public bool useGroundObject;
+   public Transform groudObject;
 
-   
-  public bool onSlope()
+
+    public bool onSlope()
    {
-       if (Physics.Raycast(transform.position, Vector3.down, out slopeHit) && grounded)
+       
+
+       if (Physics.Raycast(groudObject.position, Vector3.down, out slopeHit, Height) && grounded)
        {
-          
-             // float angle = (Mathf.Acos(Vector3.Dot(slopeHit.normal, Vector3.down)) * Mathf.Rad2Deg) / 2;
 
-              float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            //    float angle = (Mathf.Acos(Vector3.Dot(Vector3.up, slopeHit.normal)) * Mathf.Rad2Deg);
 
-            //  Debug.Log(angle);
+            float angle = PositionUsefull.extractRawAngle(Vector3.up, slopeHit.normal);
 
-
-
-              return angle < maxSlopeAngle && angle != 0;
-
-          //  return angle <= maxSlopeAngle;
+            return angle >= maxSlopeAngle;
         }
 
        return false;
    }
+
+  public  RaycastHit ground;
+
+    public void groundHit()
+    {
+        if (Physics.Raycast(groudObject.position, Vector3.down, out slopeHit, Height))
+            ground = slopeHit;
+    }
+
+
+    public bool slope;
 
   public Vector3 getSlopeMovementDir(Vector3 direction)
    {

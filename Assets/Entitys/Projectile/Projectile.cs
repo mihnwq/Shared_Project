@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 public class Projectile : Weapon
 {
@@ -73,8 +74,12 @@ public class Projectile : Weapon
 
             Entity currentEntity = entity.GetComponent<Entity>();
 
-            transform.LookAt(currentEntity.centre.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, currentEntity.centre.transform.position, speed * Time.deltaTime);
+            //   transform.LookAt(currentEntity.centre.transform.position);
+            //  transform.position = Vector3.MoveTowards(transform.position, currentEntity.centre.transform.position, speed * Time.deltaTime);
+
+            PositionUsefull.setFullForwardTo(transform, currentEntity.centre.transform.position,-1);
+
+            PositionUsefull.moveObjectForwad(transform,speed);
         }
 
     }

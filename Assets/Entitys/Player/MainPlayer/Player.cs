@@ -137,6 +137,8 @@ public class Player : Entity
         sd.startYScale = transform.localScale.y;
 
         pt.init();
+
+        base.Start();
     }
 
   
@@ -186,6 +188,7 @@ public class Player : Entity
     //don't touch here
     public override void Update()
     {
+        slope = onSlope();
         if (!ChainVars.isPaused)
         {
 
@@ -348,23 +351,23 @@ public class Player : Entity
         {
             if (dashing)
             {
-                stamina = Mathf.Lerp(lastStamina, 0, (staminaDrainSpeed * 4) * Time.deltaTime);
+                stamina = Mathf.Lerp(stamina, 0, (staminaDrainSpeed * 4) * Time.deltaTime);
             }
             else if(state == movementState.sprinting)
             {
-                stamina = Mathf.Lerp(lastStamina, 0, (staminaDrainSpeed / 2) * Time.deltaTime);
+                stamina = Mathf.Lerp(stamina, 0, (staminaDrainSpeed / 2) * Time.deltaTime);
             }
             else
             {
-                stamina = Mathf.Lerp(lastStamina, 0, staminaDrainSpeed * Time.deltaTime);
+                stamina = Mathf.Lerp(stamina, 0, staminaDrainSpeed * Time.deltaTime);
             }
             
             regenCooldownTimer = staminaRegenCooldown; // Start the cooldown after draining stamina
         }
-        else
+       /* else
         {
             lastStamina = stamina;
-        }
+        }*/
     }
 
 
@@ -773,16 +776,18 @@ public class Player : Entity
     {
         checkedLocked();
 
+     //   Transform directionTransform;
+
         if (!sd.sliding)
         {
 
             if (isLocked)
             {
-                return entityObj.forward * vertical + entityObj.right * horizontal;
+                return PositionUsefull.getObjectNextDirection(entityObj, vertical, horizontal); //entityObj.forward * vertical + entityObj.right * horizontal;
             }
         }
 
-        return orientation.forward * vertical + orientation.right * horizontal;
+        return PositionUsefull.getObjectNextDirection(orientation, vertical, horizontal); // orientation.forward * vertical + orientation.right * horizontal;
     }
 
     public void playerMovement()

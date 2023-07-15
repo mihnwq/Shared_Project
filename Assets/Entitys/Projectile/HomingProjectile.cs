@@ -51,9 +51,9 @@ public class HomingProjectile : MonoBehaviour
     {
         if(target != null)
         {
-            projectileTransform.LookAt(target.centre.transform.position);
+            PositionUsefull.setFullForwardTo(transform, target.centre.transform.position, -1);
 
-            projectileTransform.position = Vector3.MoveTowards(projectileTransform.position, target.centre.transform.position, speed * Time.deltaTime);
+            PositionUsefull.moveObjectForwad(transform, speed);
         }
     }
 

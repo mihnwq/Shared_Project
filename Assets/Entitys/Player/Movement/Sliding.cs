@@ -111,12 +111,7 @@ public class Sliding
             stopSlide();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(playerObj.position + new Vector3(0, 0.3f, 0), playerObj.forward);
-    }
-
+   
     public void stopSlide()
     {
        
@@ -141,16 +136,17 @@ public class Sliding
         return finalDir;
     }
 
+
     public float getTerrainAngle(Vector3 position, Vector3 direction)
     {
         RaycastHit hit;
 
         if (Physics.Raycast(position, direction, out hit))
         {
-               float angle = (Mathf.Acos(Vector3.Dot(hit.normal,Vector3.down)) * Mathf.Rad2Deg) / 2;
 
-         
-             return angle;
+            float angle = PositionUsefull.extractRawAngle(hit.normal, Vector3.down) / 2;
+
+            return angle;
         }
         return 0f;
     }

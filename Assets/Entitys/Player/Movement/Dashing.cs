@@ -14,7 +14,7 @@ public class Dashing : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pl = GetComponent<Player>();
 
-        
+        timeToRechargeDash = 0;
     }
 
     public float dashForce = 40f;
@@ -27,21 +27,53 @@ public class Dashing : MonoBehaviour
     public float vertical;
     public float horizontal;
 
-
+    public int maxDashCounter;
+    public float maxDashTime;
+    public int currentDashCount;
+    public float timeToRechargeDash;
+    public bool recharged;
 
     public void dashUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.C) && currentDashCount > 0)
+        {
             Dash();
+
+            useDash();
+        }
+           
 
         if (dashCdTimer > 0)
             dashCdTimer -= Time.deltaTime;
 
+        if (timeToRechargeDash > 0)
+            timeToRechargeDash -= Time.deltaTime;
+
+        //remember to use the axis from the player
         vertical = CustomInputManager.GetAxisRaw("Vertical");
 
         horizontal = CustomInputManager.GetAxisRaw("Horizontal");
 
-        
+        if (currentDashCount < maxDashCounter)
+            if (timeToRechargeDash <= 0)
+                rechargeDash();
+
+        if (currentDashCount > maxDashCounter)
+            currentDashCount = maxDashCounter;
+    }
+
+    public void rechargeDash()
+    {
+        currentDashCount++;
+
+        timeToRechargeDash = maxDashTime;
+    }
+
+    public void useDash()
+    {
+        currentDashCount--;
+
+        timeToRechargeDash = maxDashTime;
     }
 
     public void Dash()
@@ -62,7 +94,8 @@ public class Dashing : MonoBehaviour
 
         if(ChainVars.playerIsLocked)
         {
-            Vector3 direction = playerObj.forward * vertical + playerObj.right * horizontal;
+            Vector3 direction = PositionUsefull.getObjectNextDirection(playerObj, vertical, horizontal);
+         //playerObj.forward * vertical + playerObj.right * horizontal;
 
             if(direction != Vector3.zero)
             {
@@ -80,11 +113,12 @@ public class Dashing : MonoBehaviour
 
         dashDirection *= dashForce;
 
-        //did this because forward is a direction stored in a vector, and it times vertical suggests if the direction is negative or positive, too for right
+       
 
         delayedForce = dashDirection;
 
         Invoke(nameof(addDelayedForce),0.025f);
+
         Invoke(nameof(ResetDash),dashDuration);
     }
 

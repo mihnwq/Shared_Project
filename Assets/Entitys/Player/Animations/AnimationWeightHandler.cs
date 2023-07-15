@@ -32,6 +32,7 @@ public class AnimationWeightHandler : MonoBehaviour
 
     public float layerLerp;
 
+    public PlayerKnockBackAttack knockAttack;
 
     public void Start()
     {
@@ -44,7 +45,7 @@ public class AnimationWeightHandler : MonoBehaviour
     {
          dv.updateLastValues(playerAttack.expireTime, 0 );
 
-        if (!onAttack() && useInventoryItem() && lerped && InventoryManager.instance.canUsePostion && !playerStun.isStunning && !player.pt.throwing)
+        if ((!onAttack() && useInventoryItem() && lerped && InventoryManager.instance.canUsePostion && !playerStun.isStunning && !player.pt.throwing))
         {
             layerLerp = maxLayerWeight;
 
@@ -52,8 +53,9 @@ public class AnimationWeightHandler : MonoBehaviour
         }
       else
         {
-
+            if(!knockAttack.isKnocking)
             playerAnimator.SetLayerWeight(upperBodyLayer, maxLayerWeight);
+            else playerAnimator.SetLayerWeight(upperBodyLayer, minLayerWeight);
         }
 
         if ((dv.getDerivativeWithTime(true) != 0 || playerAttack.hits[0]) && !onCombo())
@@ -64,7 +66,7 @@ public class AnimationWeightHandler : MonoBehaviour
 
             layerLerp = Mathf.Lerp(layerLerp, minLayerWeight, lerpingSpeed * Time.deltaTime);
 
-            playerAnimator.SetLayerWeight(upperBodyLayer, layerLerp);
+            playerAnimator.SetLayerWeight(upperBodyLayer, layerLerp); 
         }
         else
         {

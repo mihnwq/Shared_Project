@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class PlayerKnockBackAttack : EntityAttack
+public class PlayerKnockBackAttack : MonoBehaviour
 {
 
     public KnockbackEffect knockBack;
@@ -18,20 +18,44 @@ public class PlayerKnockBackAttack : EntityAttack
 
     public string knockString;
 
+    public float delayedKnowckBack;
+
+    public float knowckAnimationDuration;
+    public float currentKnockAnimationDuration;
+
     public void Update()
     {
         if(Input.GetKeyDown(knockKey))
         {
-            attack();
 
-            knockBack.initiateKnicking();
+            currentKnockAnimationDuration = knowckAnimationDuration;
+
+            Invoke(nameof(initiateKnockBack), delayedKnowckBack);
         }
 
-        isKnocking = knockBack.isKnocking;
+        // isKnocking = knockBack.isKnocking;
 
-        animator.SetBool(knockString, knockBack.isKnocking);
+        //  animator.SetBool(knockString, knockBack.isKnocking);
+
+        if (currentKnockAnimationDuration > 0)
+            currentKnockAnimationDuration -= Time.deltaTime;
+
+
+        setKnocking(currentKnockAnimationDuration > 0);
 
         ChainVars.isKnocking = isKnocking;
+    }
+
+    public void setKnocking(bool state)
+    {
+        isKnocking = state;
+
+        animator.SetBool(knockString, state);
+    }
+
+    public void initiateKnockBack()
+    {
+        knockBack.initiateKnicking();
     }
 
 }

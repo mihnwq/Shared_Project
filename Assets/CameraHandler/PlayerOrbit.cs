@@ -64,7 +64,7 @@ public class PlayerOrbit : MonoBehaviour
     {
         checkOrientation();
 
-          Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        Vector3 viewDir = PositionUsefull.returnForwardTo(player.position, transform.position, 1); // player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
 
         //in case the model's center breaks and it's urgent, you can offset the x and y :P
         // viewDir.x += (float)offset;
@@ -74,11 +74,9 @@ public class PlayerOrbit : MonoBehaviour
 
             if (!isLocked)
             {
-                current_orientation.forward = viewDir.normalized;
+            current_orientation.forward = viewDir; //viewDir.normalized;
 
-                //    float horizontal = Input.GetAxis("Horizontal");
-                //   float vertical = Input.GetAxis("Vertical");
-
+               
                 float horizontal = CustomInputManager.GetAxisRaw("Horizontal");
                 float vertical = CustomInputManager.GetAxisRaw("Vertical");
 
@@ -89,7 +87,7 @@ public class PlayerOrbit : MonoBehaviour
             }
             else
             {
-                current_orientation.forward = Vector3.Slerp(current_orientation.forward, viewDir.normalized, lockOnSpeed);
+                current_orientation.forward = Vector3.Slerp(current_orientation.forward, viewDir/* viewDir.normalized*/, lockOnSpeed);
             }
 
         

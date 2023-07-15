@@ -32,8 +32,12 @@ public class PlayerAttack : EntityAttack
 
     public bool[] hits = new bool[4];
 
+   public PlayerKnockBackAttack knockAttack;
+
 
     public string attackString = "isAttacking";
+
+    public string toleranceString = "tolerance";
 
 
     public void Start()
@@ -52,6 +56,7 @@ public class PlayerAttack : EntityAttack
 
          expireTime = maxExpireTime;
 
+        maxKnockDuration = knockAttack.knowckAnimationDuration;
 
     }
 
@@ -71,19 +76,14 @@ public class PlayerAttack : EntityAttack
     public override void Update()
     {
 
-        /*  if(Input.GetMouseButtonDown(0) && !isAttacking && numberOfClicks < 3)
-          {
-              initiateAttack();
-
-              attack();
-
-
-          }*/
 
         if (Input.GetMouseButtonDown(0) && !isAttacking && numberOfClicks < 3 && canClick && !onUiState())
         {
 
-            weight.layerLerp = weight.maxLayerWeight;
+                weight.layerLerp = weight.maxLayerWeight;
+
+            if(useTolerance)
+            animator.SetBool(toleranceString, false);
 
              if(numberOfClicks == 0)
              {
@@ -106,34 +106,56 @@ public class PlayerAttack : EntityAttack
 
         enableAnimation();
 
+        if (useTolerance)
+            handleTolerance();
+
         base.Update();
 
         hits[0] = animator.GetBool(attackAnimations[0]);
 
+        if(Input.GetKeyDown(knockAttack.knockKey))
+        {
+            resetAttack();
+
+            attack();
+
+            setAttackDuration(maxKnockDuration);
+        }
+
+
+        
      //   if(numberOfClicks == 0)
        // animator.SetBool(attackAnimations[numberOfClicks], true);
     }
+
+    public float maxKnockDuration;
+    
 
     public bool onUiState()
     {
         return ChainVars.isPaused || ChainVars.onInventory || ChainVars.onTrade;
     }
 
+    //used in case animations snap in place
+    public bool useTolerance = false;
 
-    /* public void initiateAttack()
-     {
-      //   animator.SetBool(attackAnimations[0], true);
+    public float toleranceValue;
 
-         numberOfClicks++;
+    public bool enabledTolerance = false;
 
-         setAttackCooldown(0);
+    public void handleTolerance()
+    {
+        if (!isAttacking && numberOfClicks != 3 && expireTime < toleranceValue)
+        {
+            animator.SetBool(toleranceString, true);
+            animator.SetBool(attackAnimations[0], false);
+        }
 
-         expireTime = maxExpireTime;
+        enabledTolerance = animator.GetBool(toleranceString);
 
-         float animationTime = getAnimationTime();
-
-         setAttackDuration(animationTime);
-     }*/
+        if(enabledTolerance)
+        Invoke(nameof(resetCombo), toleranceValue / 2);
+    }
 
     public void initiateAttack()
     {
@@ -161,7 +183,7 @@ public class PlayerAttack : EntityAttack
         return comboAnimations[numberOfClicks].length / animationSpeed;
     }
 
-
+    
 
     public void handleExpireTime()
     {
@@ -171,22 +193,39 @@ public class PlayerAttack : EntityAttack
 
         if (expireTime <= 0)
         {
-             expireTime = maxExpireTime;
+            /*  expireTime = maxExpireTime;
 
-           // expireTime = 0;
+             setAllFalse();
 
-            setAllFalse();
+             numberOfClicks = 0;
 
-            numberOfClicks = 0;
+             setAttackCooldown(originalAttackCooldown);
 
-            setAttackCooldown(originalAttackCooldown);
+             setAttackDuration(originalAttackDuration);
 
-            setAttackDuration(originalAttackDuration);
+             animator.SetBool(attackAnimations[0], false);
 
-            animator.SetBool(attackAnimations[0], false);
+             animator.SetBool(attackString, false);*/
 
-            animator.SetBool(attackString, false);
+            resetCombo();
         }
+    }
+
+    public void resetCombo()
+    {
+        expireTime = maxExpireTime;
+
+        setAllFalse();
+
+        numberOfClicks = 0;
+
+        setAttackCooldown(originalAttackCooldown);
+
+        setAttackDuration(originalAttackDuration);
+
+        animator.SetBool(attackAnimations[0], false);
+
+        animator.SetBool(attackString, false);
     }
 
     public void enableAnimation()
@@ -198,7 +237,7 @@ public class PlayerAttack : EntityAttack
             {
                 hits[numberOfClicks] = false;
 
-                if(numberOfClicks < 3)
+                if(numberOfClicks < 3 && !enabledTolerance)
                 animator.SetBool(attackAnimations[0], true);
 
                 animator.SetBool(attackAnimations[numberOfClicks], false);
@@ -224,6 +263,8 @@ public class PlayerAttack : EntityAttack
             animator.SetBool(attackString, false);
         }
             
+
+      
 
     }
 
