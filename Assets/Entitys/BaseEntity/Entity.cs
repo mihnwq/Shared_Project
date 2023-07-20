@@ -101,10 +101,13 @@ public class Entity : MonoBehaviour
 
     public float lastHealth;
 
+   public bool hasDied;
+
     // Update is called once per frame
    public virtual void Update()
    {
-
+        if (health <= 0)
+            hasDied = true;
 
        // updateAttackPoint();
         
@@ -160,9 +163,9 @@ public class Entity : MonoBehaviour
        if (Physics.Raycast(groudObject.position, Vector3.down, out slopeHit, Height) && grounded)
        {
 
-            //    float angle = (Mathf.Acos(Vector3.Dot(Vector3.up, slopeHit.normal)) * Mathf.Rad2Deg);
+               float angle = PositionUsefull.extractRawAngle(Vector3.up, slopeHit.normal);
 
-            float angle = PositionUsefull.extractRawAngle(Vector3.up, slopeHit.normal);
+            
 
             return angle >= maxSlopeAngle;
         }

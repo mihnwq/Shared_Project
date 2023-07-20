@@ -114,8 +114,7 @@ public class Collider_Usefull
     {
         Vector3 newRotation = new Vector3(angle, 0f, 0f);
 
-        //  colider_Transform.Rotate(newRotation, Space.World);
-
+      
         colider_Transform.localEulerAngles = newRotation;
     }
 
@@ -124,8 +123,7 @@ public class Collider_Usefull
 
         Vector3 newRotation = new Vector3(angle, reference.localEulerAngles.y, reference.localEulerAngles.z);
 
-        //  colider_Transform.Rotate(newRotation, Space.World);
-
+   
         colider_Transform.localEulerAngles = newRotation;
     }
 
@@ -134,7 +132,7 @@ public class Collider_Usefull
 
         Vector3 newRotation = new Vector3(angle, reference.localEulerAngles.y, reference.localEulerAngles.z);
 
-        // colider_Transform.Rotate(newRotation, Space.World);
+     
 
         colider_Transform.localEulerAngles = newRotation;
 
