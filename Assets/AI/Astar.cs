@@ -100,11 +100,11 @@ public class Astar
 
     private void getCosts(Node node)
     {
-        Vector3 startToNode = node.position - start;
-        int gCost = Mathf.RoundToInt(startToNode.magnitude);
 
-        Vector3 goalToNode = node.position - goal;
-        int hCost = Mathf.RoundToInt(goalToNode.magnitude);
+        int gCost = Mathf.RoundToInt(Mathf.Abs(node.position.x - start.x) + Mathf.Abs(node.position.y - start.y) + Mathf.Abs(node.position.z - start.z));
+
+       
+        int hCost = Mathf.RoundToInt(Mathf.Abs(node.position.x - goal.x) + Mathf.Abs(node.position.y - goal.y) + Mathf.Abs(node.position.z - goal.z));
 
         int fCost = gCost + hCost;
 

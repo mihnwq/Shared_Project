@@ -14,6 +14,8 @@ public class CameraMainBrain :MonoBehaviour
 
     public static CameraMainBrain instance;
 
+   public Player pl;
+
     public void Awake()
     {
         instance = this;
@@ -39,7 +41,7 @@ public class CameraMainBrain :MonoBehaviour
     {
 
 
-        if (!ChainVars.onInventory && !ChainVars.onTrade)
+        if (!ChainVars.onInventory && !ChainVars.onTrade && !pl.hasDied)
         {
 
             checkLockOn();

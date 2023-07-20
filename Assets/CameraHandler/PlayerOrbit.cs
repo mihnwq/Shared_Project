@@ -20,6 +20,8 @@ public class PlayerOrbit : MonoBehaviour
 
     public bool start = true;
 
+    public Player pl;
+
      
     public void checkOrientation()
     {

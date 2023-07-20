@@ -21,12 +21,7 @@ namespace Pathfinding {
 		/// 
 	    public Transform target;
 
-		public static AIDestinationSetter instance;
-
-        public void Awake()
-        {
-			instance = this;
-        }
+		
 
         IAstarAI ai;
 

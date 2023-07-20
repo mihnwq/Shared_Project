@@ -33,7 +33,7 @@ public class LongButtonClick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("up");
+        
         Reset();
     }
 
@@ -47,7 +47,7 @@ public class LongButtonClick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
             pointerDownTimer += Time.deltaTime;
 
-            Debug.Log(pointerDownTimer += Time.deltaTime);
+     
 
             if (pointerDownTimer > requiredHoldTime)
             {
