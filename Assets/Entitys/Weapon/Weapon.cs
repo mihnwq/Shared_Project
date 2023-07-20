@@ -77,14 +77,13 @@ public class Weapon : MonoBehaviour
 
                 currentEntity.health -= calculateDamage(weaponDamage,wielder.entityDamage,currentEntity.entityDefense);
 
-                
-                if (currentEntity.health <= 0)
-                {
-                    wielder.EXP += currentEntity.EXPgiven;
-                }
+                Debug.Log(calculateDamage(weaponDamage, wielder.entityDamage, currentEntity.entityDefense));
+
             }
 
                 onlyOnce = false;
+
+            
         }
     }
 

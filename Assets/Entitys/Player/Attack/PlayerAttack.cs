@@ -77,7 +77,7 @@ public class PlayerAttack : EntityAttack
     {
 
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking && numberOfClicks < 3 && canClick && !onUiState())
+        if (Input.GetMouseButtonDown(0) && !isAttacking && numberOfClicks < 3 && canClick && !onUiState() && !ChainVars.isKnocking)
         {
 
                 weight.layerLerp = weight.maxLayerWeight;

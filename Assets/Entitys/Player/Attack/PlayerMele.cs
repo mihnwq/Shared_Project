@@ -14,27 +14,34 @@ public class PlayerMele : Weapon
 
     public int meleIndex;
 
+    public bool worksOnMeleIndex;
+
     public bool nowAttacking = false;
 
     public override void OnTriggerStay(Collider other)
     {
-       
-            if (isAttacking)
+
+        if (isAttacking)
+        {
+
+            if (worksOnMeleIndex)
             {
+
                 if (plAttack.hits[meleIndex])
                 {
-                //   Debug.Log("attacked with the index" + meleIndex);
-
-               
-
+           
                     base.OnTriggerStay(other);
                 }
-                else
-                {
-                
-                }
+
+
             }
-        
+            else
+            {
+                if(plAttack.numberOfClicks <= 0)
+                base.OnTriggerStay(other);
+            }
+
+        }
     }
 
     public override void OnTriggerEnter(Collider other)

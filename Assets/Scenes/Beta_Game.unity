@@ -808,6 +808,7 @@ MonoBehaviour:
   isAttacking: 0
   plAttack: {fileID: 344313554}
   meleIndex: 3
+  worksOnMeleIndex: 1
   nowAttacking: 0
 --- !u!114 &53304440
 MonoBehaviour:
@@ -822,12 +823,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 11
-  hitID: monster
+  hitID: MONSTER
   wielder: {fileID: 344313550}
   onlyOnce: 0
   isAttacking: 0
   plAttack: {fileID: 344313554}
   meleIndex: 1
+  worksOnMeleIndex: 1
   nowAttacking: 0
 --- !u!1001 &57796973
 PrefabInstance:
@@ -4382,6 +4384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stun: {fileID: 429107412}
   isStunning: 0
+  plAttack: {fileID: 344313554}
 --- !u!114 &344313558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4442,6 +4445,7 @@ MonoBehaviour:
   delayedKnowckBack: 0.5
   knowckAnimationDuration: 2
   currentKnockAnimationDuration: 0
+  plAttack: {fileID: 344313554}
 --- !u!114 &344313561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5366,6 +5370,7 @@ MonoBehaviour:
   isAttacking: 0
   plAttack: {fileID: 344313554}
   meleIndex: 2
+  worksOnMeleIndex: 1
   nowAttacking: 0
 --- !u!1 &434668723
 GameObject:
@@ -19042,7 +19047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1570425222
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20389,7 +20394,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35005102, y: 1.4487234, z: 0.52928627}
   m_Center: {x: -0.0054768324, y: 0.22436461, z: -0.08762728}
---- !u!114 &1690921921
+--- !u!114 &1690921923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20398,14 +20403,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1690921918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea8c4594ffd66e43bbb30f2ade85944, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b6ef43edc4808947b80b5422a7ca371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 40
+  weaponDamage: 45
   hitID: MONSTER
   wielder: {fileID: 344313550}
   onlyOnce: 0
   isAttacking: 0
+  plAttack: {fileID: 344313554}
+  meleIndex: 0
+  worksOnMeleIndex: 0
+  nowAttacking: 0
 --- !u!1001 &1691746987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22313,7 +22322,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.2695733e+31, z: 1.5400019e+10, w: 6.932051e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -23907,7 +23916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1963761492
 MonoBehaviour:
   m_ObjectHideFlags: 0

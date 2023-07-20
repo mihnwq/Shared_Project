@@ -23,9 +23,11 @@ public class PlayerKnockBackAttack : MonoBehaviour
     public float knowckAnimationDuration;
     public float currentKnockAnimationDuration;
 
+    public PlayerAttack plAttack;
+
     public void knockUpdate()
     {
-        if(Input.GetKeyDown(knockKey))
+        if(Input.GetKeyDown(knockKey) && plAttack.numberOfClicks <= 0)
         {
 
             currentKnockAnimationDuration = knowckAnimationDuration;
@@ -33,9 +35,6 @@ public class PlayerKnockBackAttack : MonoBehaviour
             Invoke(nameof(initiateKnockBack), delayedKnowckBack);
         }
 
-        // isKnocking = knockBack.isKnocking;
-
-        //  animator.SetBool(knockString, knockBack.isKnocking);
 
         if (currentKnockAnimationDuration > 0)
             currentKnockAnimationDuration -= Time.deltaTime;

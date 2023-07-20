@@ -13,9 +13,11 @@ public class PlayerStun : MonoBehaviour
 
     public bool isStunning;
 
+    public PlayerAttack plAttack;
+
     public void stunUpdate()
     {
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKey(KeyCode.T) && plAttack.numberOfClicks <= 0)
             stun.stunEntity();
 
         isStunning = stun.isStunning;
