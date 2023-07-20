@@ -52,7 +52,7 @@ public class Sliding
 
         firstDir = true;
 
-        float angle = getTerrainAngle(downObject.position, Vector3.down);
+        float angle = PositionUsefull.getTerrainAngle(downObject.position, Vector3.down) / 2;
 
         cu.rotateCollider(angle,playerObj,1f);
 
@@ -68,7 +68,7 @@ public class Sliding
     public void slidingMovement()
     {
 
-        float angle = getTerrainAngle(downObject.position, Vector3.down);
+          float angle = PositionUsefull.getTerrainAngle(downObject.position, Vector3.down) / 2;
 
         Vector3 inputDir = playerObj.forward;
 
@@ -79,15 +79,11 @@ public class Sliding
 
             
 
-            //      direction = getDirection(ChainVars.playerSlopeMovementDir);
-
-            // direction = ChainVars.playerSlopeMovementDir;
-
             direction = ChainVars.playerSlopeMovementDir;
         }
         else
         {
-            //  direction = getDirection(inputDir);
+      
 
             direction = forwardDirection;
 
@@ -96,15 +92,12 @@ public class Sliding
             
         }
 
-        //   playerObj.forward = direction;
 
         playerObj.forward = forwardDirection;
 
         rb.AddForce(direction.normalized * slideForce, ForceMode.Force);
 
         cu.rotateCollider(angle, playerObj);
-
-        Debug.Log(forwardDirection);
 
 
         if (sliderTimer <= 0)
@@ -137,17 +130,5 @@ public class Sliding
     }
 
 
-    public float getTerrainAngle(Vector3 position, Vector3 direction)
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(position, direction, out hit))
-        {
-
-            float angle = PositionUsefull.extractRawAngle(hit.normal, Vector3.down) / 2;
-
-            return angle;
-        }
-        return 0f;
-    }
+   
 }

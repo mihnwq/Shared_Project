@@ -1,7 +1,8 @@
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-
+//I am going to get hate for every static variable i am doing
+//but i don't regret a second of it since every variable here it's being changed only once
 public class ChainVars
 {
    

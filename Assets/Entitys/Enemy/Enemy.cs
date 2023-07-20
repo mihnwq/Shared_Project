@@ -42,6 +42,8 @@ public class Enemy : Entity
 
     public FollowToPosition ftp;
 
+  public AIDestinationSetter currentDestinationSetter;
+
     public void Start()
     {
 
@@ -52,23 +54,18 @@ public class Enemy : Entity
 
         targetTransform = actualObject.GetComponent<Transform>();
 
-        AIDestinationSetter.instance.target = targetTransform;
+
+        currentDestinationSetter.target = targetTransform;
 
         actualTarget = transform.position;
 
 
-        //Shit needed for animation
+     
         currentAnimation = "isIdle";
 
         previousPosition = transform.position;
 
-        /*  EXP = 1;
-          EXPgiven = 3;
-          LVL = 1;
-          nextLVL = 10;
-
-          entityDamage = 4;
-          entityDefense = 1.5f; */
+        
 
         
     }
@@ -101,7 +98,7 @@ public class Enemy : Entity
 
         animate();
 
-        nearPlayer = getDistanceNearPlayer();
+        nearPlayer = getDistanceNearPlayer(nearTargetDistance);
 
         previousPosition = transform.position;
 
@@ -143,6 +140,8 @@ public class Enemy : Entity
 
     public float aiStoppingDistance = 0.8f;
 
+    
+
     public void AI2()
     {
          Vector3 target = targetPosition.position;
@@ -154,39 +153,14 @@ public class Enemy : Entity
 
           Vector3 randomTarget = new Vector3(randomX, transform.position.y, randomZ);
 
-        /*  if (!nearPlayer)
-          {
-              if (isNearTarget())
-              {
-                  actualTarget += randomTarget;
-              }
-          }*/
-
-    /*      if (behaivour.getAgro() && !nearPlayer)
-          {
-          
-            targetTransform.position = target;
-          }
-          else if (!nearPlayer)
-          {
-            
-            targetTransform.position = actualTarget;
-          }
-
-         if (nearPlayer)
-         {
-           // agent.SetDestination(transform.position);
-           targetTransform.position = transform.position;
-         }*/
-
-          if(!nearPlayer)
+        if (!nearPlayer)
         {
             if (isNearTarget())
             {
                 actualTarget += randomTarget;
             }
 
-            if (behaivour.getAgro())
+            if (getAgro())
             {
                 targetTransform.position = target;
             }
@@ -199,16 +173,27 @@ public class Enemy : Entity
         {
             targetTransform.position = transform.position;
         }
-        
+
     }
 
+    public float getDistanceFromPlayer()
+    {
+        return (transform.position - targetPosition.position).magnitude;
+    }
+
+    public float enemyAgroRadius;
+
+    public bool getAgro()
+    {
+        return getDistanceFromPlayer() <= enemyAgroRadius;
+    }
  
 
     public float nearTargetDistance = 3.5f;
 
-    public bool getDistanceNearPlayer()
+    public bool getDistanceNearPlayer(float nearTargetDistance)
     {
-        return (transform.position - targetPosition.position).magnitude < nearTargetDistance;
+        return getDistanceFromPlayer() < nearTargetDistance;
     }
 
     public bool isNearTarget()

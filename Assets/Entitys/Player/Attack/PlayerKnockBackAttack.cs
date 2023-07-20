@@ -23,7 +23,7 @@ public class PlayerKnockBackAttack : MonoBehaviour
     public float knowckAnimationDuration;
     public float currentKnockAnimationDuration;
 
-    public void Update()
+    public void knockUpdate()
     {
         if(Input.GetKeyDown(knockKey))
         {

@@ -8,6 +8,9 @@ public class States : MonoBehaviour
 
     public Canvas optionCanvas ;
 
+
+    public SoundHandler sfx;
+
     public enum GameStates
     {
         PAUSED,
@@ -74,7 +77,7 @@ public class States : MonoBehaviour
             }
         }
 
-
+        sfx.soundUpdate();
     }
 
     public void switchGameState(bool isPaused)

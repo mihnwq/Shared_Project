@@ -8,38 +8,20 @@ using UnityEngine;
 
 public class Mele : Weapon
 {
-    public bool isOnPlayer = false;
 
     public bool isAttacking = false;
 
-    public PlayerAttack plAttack;
-
-    public int meleIndex;
+  
 
     public override void OnTriggerStay(Collider other)
     {
-        if(!isOnPlayer)
-        {
+        
             if (isAttacking)
             {
-
-                
                 base.OnTriggerStay(other);
-                //    onlyOnce = false;
             }
-        }
-      else
-        {
-            if (isAttacking)
-            {
-                if (plAttack.hits[meleIndex])
-                {
-                 //   Debug.Log("attacked with the index" + meleIndex);
-
-                    base.OnTriggerStay(other);
-                }
-            }
-        }
+        
+      
     }
 
     public override void OnTriggerEnter(Collider other)

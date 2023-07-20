@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+   public Player pl;
+
     public static InventoryManager instance;
 
     public List<Item> items = new List<Item>();
@@ -62,14 +64,7 @@ public class InventoryManager : MonoBehaviour
              itemName.text = item.itemName;
              itemImage.sprite = item.icon;
 
-        //    inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
-
-            //  inventory[currentIndex].addItem(items[currentIndex]);
-
-
-           // inventory[currentIndex].addItem(item);
-
-         //   currentIndex++;
+       
         }
 
         amount[item.id]++;
@@ -87,24 +82,25 @@ public class InventoryManager : MonoBehaviour
     {
         //   inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
 
-        
-
-        if (Input.GetKeyDown(KeyCode.I))
+        if (!pl.hasDied)
         {
-           
 
-            isOpen = !isOpen;
-            inv.SetActive(isOpen);
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+
+
+                isOpen = !isOpen;
+                inv.SetActive(isOpen);
+            }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                healingHotKey();
+
+            }
+
+            ChainVars.onInventory = isOpen;
         }
-
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            healingHotKey();
-
-        }
-
-        ChainVars.onInventory = isOpen;
-
        
     }
 

@@ -36,7 +36,7 @@ public class AnimationWeightHandler : MonoBehaviour
 
     public void Start()
     {
-        dv = new ExtractDerivativeOf(playerAttack.expireTime, 0 , 0.2f);
+        dv = new ExtractDerivativeOf(0.2f,0);
     }
 
     bool lerped = false;
@@ -58,11 +58,10 @@ public class AnimationWeightHandler : MonoBehaviour
             else playerAnimator.SetLayerWeight(upperBodyLayer, minLayerWeight);
         }
 
-        if ((dv.getDerivativeWithTime(true) != 0 || playerAttack.hits[0]) && !onCombo())
+        if ((dv.getDerivativeWithTime() != 0 || playerAttack.hits[0]) && !onCombo())
         {
             lerped = false;
 
-        //    layerLerp = Mathf.Lerp(layerLerp, minLayerWeight, lerpingSpeed * Time.deltaTime);
 
             layerLerp = Mathf.Lerp(layerLerp, minLayerWeight, lerpingSpeed * Time.deltaTime);
 

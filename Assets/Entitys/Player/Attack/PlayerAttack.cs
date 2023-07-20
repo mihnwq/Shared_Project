@@ -73,7 +73,7 @@ public class PlayerAttack : EntityAttack
 
     public float lateAttackTime;
 
-    public override void Update()
+    public  void comboUpdate()
     {
 
 
@@ -81,9 +81,6 @@ public class PlayerAttack : EntityAttack
         {
 
                 weight.layerLerp = weight.maxLayerWeight;
-
-            if(useTolerance)
-            animator.SetBool(toleranceString, false);
 
              if(numberOfClicks == 0)
              {
@@ -106,8 +103,8 @@ public class PlayerAttack : EntityAttack
 
         enableAnimation();
 
-        if (useTolerance)
-            handleTolerance();
+       /* if (useTolerance)
+            handleTolerance(); */
 
         base.Update();
 
@@ -136,7 +133,10 @@ public class PlayerAttack : EntityAttack
         return ChainVars.isPaused || ChainVars.onInventory || ChainVars.onTrade;
     }
 
-    //used in case animations snap in place
+
+    //I pretty much abandonde the idea, and how tf is abandon written
+
+  /*  //used in case animations snap in place
     public bool useTolerance = false;
 
     public float toleranceValue;
@@ -155,7 +155,7 @@ public class PlayerAttack : EntityAttack
 
         if(enabledTolerance)
         Invoke(nameof(resetCombo), toleranceValue / 2);
-    }
+    }*/
 
     public void initiateAttack()
     {
@@ -193,19 +193,7 @@ public class PlayerAttack : EntityAttack
 
         if (expireTime <= 0)
         {
-            /*  expireTime = maxExpireTime;
-
-             setAllFalse();
-
-             numberOfClicks = 0;
-
-             setAttackCooldown(originalAttackCooldown);
-
-             setAttackDuration(originalAttackDuration);
-
-             animator.SetBool(attackAnimations[0], false);
-
-             animator.SetBool(attackString, false);*/
+           
 
             resetCombo();
         }
@@ -228,6 +216,8 @@ public class PlayerAttack : EntityAttack
         animator.SetBool(attackString, false);
     }
 
+
+  
     public void enableAnimation()
     {
 
@@ -237,7 +227,7 @@ public class PlayerAttack : EntityAttack
             {
                 hits[numberOfClicks] = false;
 
-                if(numberOfClicks < 3 && !enabledTolerance)
+                if(numberOfClicks < 3 /* && !enabledTolerance*/)
                 animator.SetBool(attackAnimations[0], true);
 
                 animator.SetBool(attackAnimations[numberOfClicks], false);

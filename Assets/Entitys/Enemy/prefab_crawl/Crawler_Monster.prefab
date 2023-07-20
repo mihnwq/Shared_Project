@@ -305,6 +305,9 @@ MonoBehaviour:
   stunned: 0
   lastHealth: 0
   groundDrag: 0
+  useGroundObject: 0
+  groudObject: {fileID: 0}
+  slope: 0
   rotX: 0
   rotZ: 0
   emptyObject: {fileID: 0}
@@ -314,6 +317,7 @@ MonoBehaviour:
   behaivour: {fileID: 29929633074063210}
   animator: {fileID: 7051809266520572432}
   nearPlayer: 0
+  currentDestinationSetter: {fileID: 823311970351834378}
   lastStart: {x: 0, y: 0, z: 0}
   lastEnd: {x: 0, y: 0, z: 0}
   currentAnimation: 

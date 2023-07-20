@@ -36,7 +36,7 @@ public class GetKeybind : MonoBehaviour
 
    public bool isAlreadyOnAButton;
 
-   public ButtonManager buttonToManage;
+    ButtonManager buttonToManage;
 
     
 

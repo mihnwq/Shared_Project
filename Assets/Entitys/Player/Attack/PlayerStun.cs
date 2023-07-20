@@ -13,7 +13,7 @@ public class PlayerStun : MonoBehaviour
 
     public bool isStunning;
 
-    public void Update()
+    public void stunUpdate()
     {
         if (Input.GetKey(KeyCode.T))
             stun.stunEntity();

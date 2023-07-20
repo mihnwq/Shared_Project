@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-//Made this class for my own implementations of Vector3.LookAt,Vector3.MoveTwoards and more...
+//Made this class for my own implementations of LookAt,MoveTwoards and more...
 public struct PositionUsefull
 {
 
@@ -17,10 +17,25 @@ public struct PositionUsefull
 
         float magnitudes = start.magnitude * end.magnitude;
 
+     
         float cosine = dot / magnitudes;
 
 
         return Mathf.Acos(cosine) * Mathf.Rad2Deg;
+    }
+
+    public static float getTerrainAngle(Vector3 position, Vector3 direction)
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(position, direction, out hit))
+        {
+
+            float angle = extractRawAngle(hit.normal, Vector3.down);
+
+            return angle;
+        }
+        return 0f;
     }
 
     //has to set the position returned by this to the position of the object you want :P
@@ -105,6 +120,12 @@ public struct PositionUsefull
     public static Vector3 getObjectNextDirection(Transform obj, float vm, float hm)
     {
         return obj.forward * vm + obj.right * hm;
+    }
+
+    //Extracts the absolute sum of the vector.
+    public static float getVectorSum(Vector3 vector)
+    {
+        return  Mathf.Round(Mathf.Abs(vector.x) + Mathf.Abs(vector.y) + Mathf.Abs(vector.z));
     }
 }
 

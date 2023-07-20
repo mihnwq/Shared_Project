@@ -17,19 +17,21 @@ public class ExtractDerivativeOf
     public float lastSecondValues;
 
 
-    public float timeBeforeLastDelta;
+    public float timeBeforeLastValue;
 
-    public float timeForDelta;
+    public float timeForLastValue;
 
-    public ExtractDerivativeOf(float firstValue, float secondValue, float timeBeforeLastDelta)
+    //Tolerance is used for minimalazing the rate of change
+    public float tolerance;
+
+    public ExtractDerivativeOf(float timeBeforeLastValue, float tolerance)
     {
-        this.firstValue = firstValue;
 
-        this.secondValue = secondValue;
+        this.timeBeforeLastValue = timeBeforeLastValue;
 
-        this.timeBeforeLastDelta = timeBeforeLastDelta;
+        timeForLastValue = 0;
 
-        timeForDelta = 0;
+        this.tolerance = tolerance;
     }
 
 
@@ -39,9 +41,9 @@ public class ExtractDerivativeOf
      {
         this.firstValue = firstValue; this.secondValue = secondValue;
 
-         if(timeForDelta <= 0)
+         if(timeForLastValue <= 0)
          {
-             timeForDelta = timeBeforeLastDelta;
+            timeForLastValue = timeBeforeLastValue;
 
              lastFirstValue = firstValue;
 
@@ -49,27 +51,31 @@ public class ExtractDerivativeOf
          }
 
 
-         if (timeForDelta > 0)
-             timeForDelta -= Time.deltaTime;
+         if (timeForLastValue > 0)
+            timeForLastValue -= Time.deltaTime;
 
      }
 
    
 
-    public float getDerivativeOfTheTwo(bool switchAxes)
+    public float getDerivativeOfTheTwo()
     {
-        if(switchAxes)
-            return  (secondValue - lastSecondValues) / (firstValue - lastFirstValue);
+        float derivative = (firstValue - lastFirstValue) / (secondValue - lastSecondValues);
 
-        return (firstValue - lastFirstValue) / (secondValue - lastSecondValues);
+        if (Mathf.Abs(derivative) > tolerance)
+            return derivative;
+
+        return 0;
     }
 
-    public float getDerivativeWithTime(bool value)
+    public float getDerivativeWithTime()
     {
-        if (value)
-            return (firstValue - lastFirstValue) / Time.deltaTime;
+        float derivative = (firstValue - lastFirstValue) / Time.deltaTime;
 
-        return (secondValue - lastSecondValues) / Time.deltaTime;
+        if (Mathf.Abs(derivative) > tolerance)
+            return derivative;
+
+        return 0;
     }
 }
 

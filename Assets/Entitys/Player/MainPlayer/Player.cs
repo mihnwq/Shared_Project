@@ -188,39 +188,46 @@ public class Player : Entity
     //don't touch here
     public override void Update()
     {
-        slope = onSlope();
-        if (!ChainVars.isPaused)
+        if (!hasDied)
         {
 
-            if(!ChainVars.onInventory && !ChainVars.onTrade)
+            slope = onSlope();
+            if (!ChainVars.isPaused)
             {
-              
 
-                checkGrounded();
-
-                if(!pka.isKnocking)
-                Move();
-
-                checkCommands();
-
-                base.Update();
+                if (!ChainVars.onInventory && !ChainVars.onTrade)
+                {
 
 
-                updateStats();
+                    checkGrounded();
+
+                    if (!pka.isKnocking)
+                        Move();
+
+                    checkCommands();
+
+                    base.Update();
+
+
+                    updateStats();
+                }
+                else
+                {
+                    getOnIdle();
+                }
+
             }
-           else
-            {
-                getOnIdle();
-            }
-         
+
+            ChainVars.UpdateOnSlope(onSlope());
+            ChainVars.playerExitSlope = playerExitSlope;
+            ChainVars.playerSliding = sd.sliding;
+
+            base.Update();
         }
-
-        ChainVars.UpdateOnSlope(onSlope());
-        ChainVars.playerExitSlope = playerExitSlope;
-        ChainVars.playerSliding = sd.sliding;
-
-
-      
+        else
+        {
+            die();
+        }
         
     }
 
@@ -230,6 +237,17 @@ public class Player : Entity
         previousAnimation = currentAnimation;
 
         currentAnimation = "isIdle";
+
+        anim.SetBool(previousAnimation, false);
+
+        anim.SetBool(currentAnimation, true);
+    }
+
+    public void die()
+    {
+        previousAnimation = currentAnimation;
+
+        currentAnimation = "ded";
 
         anim.SetBool(previousAnimation, false);
 
@@ -550,6 +568,46 @@ public class Player : Entity
     string previousAnimation;
 
     //don't touch here
+
+    public string getDashAnimation()
+    {
+        if (horizontal == -vertical)
+            if (horizontal > 0)
+                return "dashingR";
+            else if (horizontal < 0)
+                return "dashingL";
+
+
+        float sum = vertical + horizontal;
+
+        if(sum == 1 || sum == -1)
+        {
+            if(vertical != 0)
+            {
+                if (vertical > 0)
+                {
+                    return "dashingF";
+                }
+                else return "dashingB";
+ 
+            }else
+            {
+                if (horizontal > 0)
+                {
+                    return "dashingR";
+                }
+                else return "dashingL";
+            }
+        }
+
+        if (sum == -2)
+            return "dashingB";
+        else if (sum == 2)
+            return "dashingR";
+
+        return "dashingF";
+    }
+
     private void stateHandler()
     {
         previousAnimation = currentAnimation;
@@ -568,7 +626,9 @@ public class Player : Entity
             desiredMoveSpeed = dashSpeed;
             speedChangeFacotr = dashSpeedChangeFacotr;
 
-            currentAnimation = "isDashing";
+            //   currentAnimation = "isDashing";
+
+            currentAnimation = getDashAnimation();
 
         } else if (sd.sliding)
         {
@@ -721,8 +781,6 @@ public class Player : Entity
 
     private string throwingAnimation = "isThrowingKnife";
 
-   // private string meleAttackAnimation = "isAttackingMele";
-
     private string stunningAnimation = "isUsingStun";
 
     public void addAttackAnimation()
@@ -806,7 +864,7 @@ public class Player : Entity
 
                 Vector3 slopeDir = getSlopeMovementDir(moveDirection);
 
-                rb.AddForce(slopeDir * speed * 5f, ForceMode.Force);
+                rb.AddForce(sidewaysOnSlope(slopeDir , 5f) * speed * 5f, ForceMode.Force);
 
                 ChainVars.UpdateDir(slopeDir);
 
@@ -815,8 +873,7 @@ public class Player : Entity
                 if (rb.velocity.y < 0.1f)
                 {
                 
-
-                    rb.AddForce((Vector3.down) * 65f, ForceMode.Force);
+                    rb.AddForce(getSlopeDownDirection(Vector3.right,65f), ForceMode.Force);
                 }
 
             }
@@ -831,6 +888,28 @@ public class Player : Entity
         speedControl();
 
          rb.useGravity = !onSlope();
+    }
+
+    public Vector3 getSlopeDownDirection(Vector3 actual_direction, float force)
+    {
+       /* if(horizontal != 0)
+        return Vector3.down * force + actual_direction * force / 3; */
+
+        return Vector3.down * force;
+    }
+
+    public Vector3 sidewaysOnSlope(Vector3 direction, float force)
+    {
+      /*  if (horizontal != 0 && vertical != 0)
+            return direction + Vector3.right * horizontal  * force;
+
+        if (horizontal != 0 && vertical == 0)
+            return Vector3.right * force;
+
+        if (horizontal == 0 && vertical == 0)
+            return direction;*/
+
+        return direction;
     }
 
     public void speedControl()
