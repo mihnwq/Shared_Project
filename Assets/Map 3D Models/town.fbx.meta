@@ -1,0 +1,291 @@
+fileFormatVersion: 2
+guid: c9d9d354c27cd0441b2b7d75281c2ef8
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bank txtr
+    second: {fileID: 2800000, guid: 2f8a6483e4032484884910e9bc528070, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bank viveska
+    second: {fileID: 2800000, guid: 4a47ea7176dfb7149a7acc5be78e12f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: blacksmith txtr
+    second: {fileID: 2800000, guid: 7754989899a59c541b96b0842461ff4f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: blksmth vvsk
+    second: {fileID: 2800000, guid: e5565f492a6e592478a43e6a47c8bb20, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bpchka nowa
+    second: {fileID: 2800000, guid: 193b07140099f61439b2f90724d1baac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cerkov dver vizor txtr
+    second: {fileID: 2800000, guid: 4697dc42a4c3454459555e728a032065, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cerkov txtr
+    second: {fileID: 2800000, guid: 4e43b04ab6e0ac54bb25aa821e55285b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doc viveska
+    second: {fileID: 2800000, guid: 176f08f2dbaaa6e4d8962df9cd9d581a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: domik 1 txtr
+    second: {fileID: 2800000, guid: a3df75f253584c3489c22f44af3eec7e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doski novi
+    second: {fileID: 2800000, guid: 0af48c93e9593244f9a841f0f39618d1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doski old 3
+    second: {fileID: 2800000, guid: 43b3c92bfde195343a98235080aaf2da, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: fluger txtr
+    second: {fileID: 2800000, guid: 21020bc6e6ba9994aa9007cc2917043a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: general store txtr
+    second: {fileID: 2800000, guid: c055fac17b97bf94fafd78c33598ad21, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hopre-cactus-texture
+    second: {fileID: 2800000, guid: cb370d5847e7b234e85ddb21f642e2a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hotel
+    second: {fileID: 2800000, guid: cf70dd2c4e8b2e748bfed21103176aa8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hotel textura
+    second: {fileID: 2800000, guid: 597961171edaf6547b5e80e79b795202, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hptel vizor dveri txtr
+    second: {fileID: 2800000, guid: b2dc648533360104fa0d13a6c546db83, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: irzhave zelezo 2
+    second: {fileID: 2800000, guid: 6d7f04f0ef4a2b74f803d82377ca6262, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: izba 1 txtr
+    second: {fileID: 2800000, guid: 09c0eddb9e907024bac34f3496a08e18, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: littlesaloon txtr
+    second: {fileID: 2800000, guid: ffff5eb63a8001f4a9e4a54838e67ea2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: old doski 5
+    second: {fileID: 2800000, guid: 7e204f88bbb370a47841fe7d985ef52d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: old dosks 4
+    second: {fileID: 2800000, guid: 763280181c6b9ea42bf3473d9735b343, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: old wood build txtr
+    second: {fileID: 2800000, guid: 953747e0638a01e428a2056674cb73ea, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rozisk 1
+    second: {fileID: 2800000, guid: eb8aac18c1983b64e9a97717d4bb5220, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: saloon
+    second: {fileID: 2800000, guid: 90761824edd1c064796645721a094f06, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: saray obama
+    second: {fileID: 2800000, guid: 12633f42d77969b40be2f28d88de3812, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sheriff build txtr
+    second: {fileID: 2800000, guid: 6d2e5f401819aa243a56f736340cb3a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: store
+    second: {fileID: 2800000, guid: 0b9b8dd626fb25b4f82768137217d17f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: valov txtr
+    second: {fileID: 2800000, guid: f2803fb3217521543bfa76bbe0a2cb7b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: vikno chrvene txtr
+    second: {fileID: 2800000, guid: 19d4b36cb74ef1c408a8d1da60825412, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: visileca
+    second: {fileID: 2800000, guid: 8334e532263c7c843bb2d576f2fe452a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: viski txrt
+    second: {fileID: 2800000, guid: 5d53e353bf47e854db53e3cbabdda48b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: western house txtr
+    second: {fileID: 2800000, guid: eaa586aa6f4c4d84eb7f5883f5d361c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: window1
+    second: {fileID: 2800000, guid: 7480f40dd5f6fb941a9009e685d39d38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: window2
+    second: {fileID: 2800000, guid: 61cbb2105c3d66342a682f258453660b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wood stare
+    second: {fileID: 2800000, guid: e83efd597d3cc0449bcc59dbbef542db, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wood_76
+    second: {fileID: 2800000, guid: af6b4ecd73cca2742bd47e531d5a75b5, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
