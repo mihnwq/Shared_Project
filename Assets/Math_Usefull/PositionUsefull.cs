@@ -61,17 +61,17 @@ public struct PositionUsefull
         obj.position += obj.forward * (speed * Time.deltaTime);
     }
 
-    //Sets the forward of an object to the relative  X,Z position of an object making the opbject look in the same direction .In reverse, it will set the forward to the position, looking at each other.
-    public static void setForwardTo(Transform from, Vector3 to , float multiplier)
+    //Vector decreasiong (don't funcking know if i spelled that right), basically find the direction from Vector from  to Vector to
+    public static void setForwardTo(Transform to, Vector3 from, float multiplier)
     {
-        Vector3 forward = (from.position - new Vector3(to.x, from.position.y, to.z)) * multiplier;
+        Vector3 forward = (to.position - new Vector3(from.x, to.position.y, from.z)) * multiplier;
 
-        from.forward = forward.normalized;
+        to.forward = forward.normalized;
     }
 
-    public static Vector3 returnForwardTo(Vector3 from, Vector3 to, float multiplier)
+    public static Vector3 returnForwardTo(Vector3 to, Vector3 from, float multiplier)
     {
-        return ((from - new Vector3(to.x, from.y, to.z)) * multiplier).normalized;
+        return ((to - new Vector3(from.x, to.y, from.z)) * multiplier).normalized;
     }
 
     //some lil overloads for slopes
@@ -79,41 +79,31 @@ public struct PositionUsefull
     {
         Vector3 forward = (from.position - new Vector3(to.x, from.position.y, to.z)) * multiplier;
 
-        from.forward = Vector3.ProjectOnPlane(forward.normalized,ground.normal);
+        from.forward = Vector3.ProjectOnPlane(forward.normalized, ground.normal);
     }
 
-    public static Vector3 returnForwardTo(Vector3 from, Vector3 to, RaycastHit ground, float multiplier)
+    public static Vector3 returnForwardTo(Vector3 to, Vector3 from, RaycastHit ground, float multiplier)
     {
-        return Vector3.ProjectOnPlane(((from - new Vector3(to.x, from.y, to.z)) * multiplier).normalized,ground.normal);
+        return Vector3.ProjectOnPlane(((to - new Vector3(from.x, to.y, from.z)) * multiplier).normalized, ground.normal);
     }
 
     //now without ignoring the Y axis
 
-    public static void setFullForwardTo(Transform from, Vector3 to, float multiplier)
+    public static void setFullForwardTo(Transform to, Vector3 from, float multiplier)
     {
-        Vector3 forward = (from.position - new Vector3(to.x, to.y, to.z)) * multiplier;
+        Vector3 forward = (to.position - new Vector3(from.x, from.y, from.z)) * multiplier;
 
-        from.forward = forward.normalized;
+        to.forward = forward.normalized;
     }
 
    
-    public static Vector3 returnFullForwardTo(Vector3 from, Vector3 to, float multiplier)
+    public static Vector3 returnFullForwardTo(Vector3 to, Vector3 from, float multiplier)
     {
-        return ((from - new Vector3(to.x, to.y, to.z)) * multiplier).normalized;
+        return ((to - new Vector3(from.x, from.y, from.z)) * multiplier).normalized;
     }
 
-    //some lil overloads for slopes
-    public static void setFullForwardTo(Transform from, Vector3 to, RaycastHit ground, float multiplier)
-    {
-        Vector3 forward = (from.position - new Vector3(to.x, to.y, to.z)) * multiplier;
-
-        from.forward = Vector3.ProjectOnPlane(forward.normalized, ground.normal);
-    }
-
-    public static Vector3 returnFullForwardTo(Vector3 from, Vector3 to, RaycastHit ground, float multiplier)
-    {
-        return Vector3.ProjectOnPlane(((from - new Vector3(to.x, to.y, to.z)) * multiplier).normalized, ground.normal);
-    }
+    
+   
 
     //Now for other transform related positions
 

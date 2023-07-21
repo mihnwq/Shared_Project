@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -81,17 +82,7 @@ public class Entity : MonoBehaviour
    public virtual void Start()
    {
 
-        /*  EntityData data = SaveSystem.load(ChainVars.saveID);
-
-          health = data.helath;
-
-          Vector3 position;
-
-          position.x = data.position[0];
-
-          position.y = data.position[1];
-
-          position.z = data.position[2];
+        /*
         */
 
         if (useGroundObject)
@@ -102,6 +93,9 @@ public class Entity : MonoBehaviour
     public float lastHealth;
 
    public bool hasDied;
+
+  
+    
 
     // Update is called once per frame
    public virtual void Update()

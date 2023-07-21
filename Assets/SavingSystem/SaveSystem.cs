@@ -9,9 +9,9 @@ public static class SaveSystem
 
     public static void initializePaths()
     {
-        paths[0] = "/saveFile.fun1";
+        paths[0] = "/saveFile1.txt";
 
-        paths[1] = "/saveFile.fun2"; 
+        paths[1] = "/saveFile2.txt"; 
     }
 
     public static void save(Player player, int saveID)
@@ -37,7 +37,7 @@ public static class SaveSystem
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
-            FileStream stream = new FileStream(path, FileMode.Create);
+            FileStream stream = new FileStream(path, FileMode.Open);
 
             EntityData data = formatter.Deserialize(stream) as EntityData;
             stream.Close();

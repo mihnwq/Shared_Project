@@ -8,6 +8,8 @@ public class States : MonoBehaviour
 
     public Canvas optionCanvas ;
 
+    public GameObject invCanvas;
+
 
     public SoundHandler sfx;
 
@@ -54,6 +56,10 @@ public class States : MonoBehaviour
                 case GameStates.ON_GAME:
 
                     states = GameStates.PAUSED;
+
+                    ChainVars.onInventory = false;
+
+                    invCanvas.gameObject.SetActive(false);
 
                     switchGameState(true);
 

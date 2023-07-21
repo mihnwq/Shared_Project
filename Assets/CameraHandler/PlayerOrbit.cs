@@ -92,10 +92,11 @@ public class PlayerOrbit : MonoBehaviour
                 current_orientation.forward = Vector3.Slerp(current_orientation.forward, viewDir/* viewDir.normalized*/, lockOnSpeed);
             }
 
-        
 
 
-        ChainVars.playerIsLocked = isLocked;
+       
+            ChainVars.playerIsLocked = isLocked;
+       
         
     }
 

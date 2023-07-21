@@ -8,7 +8,7 @@ using UnityEngine;
 public class CameraMainBrain :MonoBehaviour
 {
 
-    CameraLockOn clo;
+    CameraOverTheShoulder clo;
 
     MoveAroundPlayer map;
 
@@ -23,7 +23,7 @@ public class CameraMainBrain :MonoBehaviour
 
     public void Start()
     {
-        clo = GetComponent<CameraLockOn>();
+        clo = GetComponent<CameraOverTheShoulder>();
 
         map = GetComponent<MoveAroundPlayer>();
     }

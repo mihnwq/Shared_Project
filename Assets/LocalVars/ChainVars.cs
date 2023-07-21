@@ -23,7 +23,7 @@ public class ChainVars
     //bools used to chain the game states to entity controls
     public static bool onTitle = true;
 
-    public static int saveID;
+    public static int saveID = 1;
 
     public static bool isPaused = false;
 

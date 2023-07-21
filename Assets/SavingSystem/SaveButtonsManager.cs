@@ -17,12 +17,18 @@ public class SaveButtonsManager : MonoBehaviour
         SaveSystem.initializePaths();    
     }
 
-   public void Click()
+   public void ClickSave()
     {
-        ChainVars.saveID = ID;
+       
 
-        
+        Player.instance.saveEntity();
     }
 
+    public void ClickLoad()
+    {
+        //ChainVars.saveID = ID;
+
+        Player.instance.loadEnity();
+    }
 }
 

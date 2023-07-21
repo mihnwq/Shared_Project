@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class CameraLockOn : MonoBehaviour
+public class CameraOverTheShoulder : MonoBehaviour
 {
 
     public Transform target;
@@ -44,26 +45,16 @@ public class CameraLockOn : MonoBehaviour
     {
         rotate();
 
-        //rotating the camera
+          transform.position =  (playerObj.position - transform.forward * 7f) + playerObj.right;
 
-     //   Vector3 newPosition = transform.position + transform.TransformDirection(Vector3.forward) * 5;
-
-       // target.position = newPosition;
-
-        transform.position =  (playerObj.position - transform.forward * 4f) + playerObj.right;
-
-
-        //rotation the player
-
-        //  playerRotation = Vector3.Lerp(player.forward, transform.forward, Time.deltaTime * rotationSpeed);
-
-        //  playerRotation.y = player.position.y;
-
+      
         Vector3 cameraOffset = transform.position - playerObj.right;
 
-        playerRotation = (player.position) - new Vector3(cameraOffset.x, player.position.y, cameraOffset.z);
+        playerRotation = PositionUsefull.returnForwardTo(player.position,cameraOffset,1);
         
         player.forward = Vector3.Lerp(player.forward, playerRotation.normalized, rotationSpeed );
+
+        
 
     }
 

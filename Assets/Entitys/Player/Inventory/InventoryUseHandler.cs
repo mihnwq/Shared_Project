@@ -27,7 +27,7 @@ public class InventoryUseHandler : MonoBehaviour
     {
         if(InventoryManager.instance.amount[item.id] > 0)
         {
-            if (InventoryManager.instance.amount[item.id] == 1)
+            if (InventoryManager.instance.amount[item.id] <= 1)
             {
                 InventoryManager.instance.remove(item);
 
@@ -54,12 +54,8 @@ public class InventoryUseHandler : MonoBehaviour
                 {
 
                     case Item.itemType.potion:
-
-                       
-                         used = true;
-                         link.instance.health += 10;
-                        
-
+                    if(InventoryManager.instance.canUsePostion)
+                    usePotion();
                         break;
                 }
                 removeItem(item);
@@ -70,7 +66,14 @@ public class InventoryUseHandler : MonoBehaviour
        
     }
 
-   
+    public void usePotion()
+    {
+        used = true;
+        InventoryManager.instance.canUsePostion = false;
+        InventoryManager.instance.initiateHeal();
+    }
+
+
     public bool used = false;
 
     public bool canUse()

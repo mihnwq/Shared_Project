@@ -41,7 +41,9 @@ public class Dashing : MonoBehaviour
 
             useDash();
         }
-           
+
+      
+
 
         if (dashCdTimer > 0)
             dashCdTimer -= Time.deltaTime;
@@ -76,6 +78,8 @@ public class Dashing : MonoBehaviour
         timeToRechargeDash = maxDashTime;
     }
 
+    Vector3 veryfinaldir;
+
     public void Dash()
     {
         if (dashCdTimer > 0)
@@ -95,9 +99,10 @@ public class Dashing : MonoBehaviour
         if(ChainVars.playerIsLocked)
         {
             Vector3 direction = PositionUsefull.getObjectNextDirection(playerObj, vertical, horizontal);
-         //playerObj.forward * vertical + playerObj.right * horizontal;
+            //playerObj.forward * vertical + playerObj.right * horizontal;
 
-            if(direction != Vector3.zero)
+
+            if (direction != Vector3.zero)
             {
                 dashDirection = direction;
             }

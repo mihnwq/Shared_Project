@@ -10,6 +10,8 @@ public class EntityData
 
     public int[] inventoryIDS = new int[10];
 
+   
+
     public EntityData(Entity entity)
     {
 
@@ -22,5 +24,11 @@ public class EntityData
         position[2] = entity.transform.position.z;
 
         inventoryIDS = InventoryManager.instance.amount;
+
+        
     }
+
+
+   
+   
 }

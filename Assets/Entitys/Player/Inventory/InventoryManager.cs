@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
+    public Item[] currentInGameItems;
+
    public InventoryUseHandler[] inventory;
 
     public int[] amount = new int[10];
@@ -24,6 +27,8 @@ public class InventoryManager : MonoBehaviour
     public Item potionItem;
 
     public Animator animator;
+
+    public link linkq;
 
     //  public string healingString;
 
@@ -74,6 +79,36 @@ public class InventoryManager : MonoBehaviour
         setItems();
     }
 
+    public void setInventoryItemsOnLoad(int[] amount)
+    {
+
+        for(int i = 0; i < amount.Length; i++)
+        {
+            if (amount[i] > 0)
+            {
+                amount[i] = 1;
+            }
+        }
+
+        inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            inventory[i].removeItem(items[i]);
+        }
+       
+
+        for (int i = 0; i < amount.Length; i++)
+        {
+            if (amount[i] > 0)
+            {
+               // add(currentInGameItems[i]);
+            }
+        }
+
+        this.amount = amount;
+    }    
+
    public GameObject inv;
 
     public bool isOpen = false;
@@ -87,9 +122,8 @@ public class InventoryManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-
-
                 isOpen = !isOpen;
+
                 inv.SetActive(isOpen);
             }
 
@@ -100,6 +134,7 @@ public class InventoryManager : MonoBehaviour
             }
 
             ChainVars.onInventory = isOpen;
+
         }
        
     }
@@ -121,10 +156,15 @@ public class InventoryManager : MonoBehaviour
 
             inventory[index].removeItem(items[index]);
 
-            animator.SetBool(animationItem[0], true);
-
-            Invoke(nameof(heal), healingTime);
+            initiateHeal();
         }
+    }
+
+    public void initiateHeal()
+    {
+        animator.SetBool(animationItem[0], true);
+
+        Invoke(nameof(heal), healingTime);
     }
 
     public void heal()
@@ -142,7 +182,7 @@ public class InventoryManager : MonoBehaviour
         switch (item.type)
         {
             case Item.itemType.potion:
-                link.instance.health += 10;
+                linkq.health += 10;
                 break;
         }
     }

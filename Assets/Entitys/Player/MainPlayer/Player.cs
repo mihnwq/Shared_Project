@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class Player : Entity
 {
 
+    public link linq;
+
     public int currency = 0;
 
     public Transform mainCamera;
@@ -612,23 +614,17 @@ public class Player : Entity
     {
         previousAnimation = currentAnimation;
 
-      /*  if(pka.isKnocking)
-        {
-            state = movementState.idle;
-
-            currentAnimation = "isKicking";
-        }
-        else
-        */
+     
         if (dashing)
         {
             state = movementState.dash;
             desiredMoveSpeed = dashSpeed;
             speedChangeFacotr = dashSpeedChangeFacotr;
 
-            //   currentAnimation = "isDashing";
+            if(!isLocked)
+             currentAnimation = "dashingF";
+            else currentAnimation = getDashAnimation();
 
-            currentAnimation = getDashAnimation();
 
         } else if (sd.sliding)
         {
@@ -821,14 +817,23 @@ public class Player : Entity
 
     public bool isLocked = false;
 
+
     public void checkedLocked()
     {
         if (view != cameraStates.overTheShoulder)
         {
+           
+
             isLocked = ChainVars.playerIsLocked;
         }
-         
+        else
+        {
+            ChainVars.playerIsLocked = isLocked;
+        }
+        
     }
+
+    
 
     public Vector3 getMoveDirection()
     {
@@ -864,7 +869,7 @@ public class Player : Entity
 
                 Vector3 slopeDir = getSlopeMovementDir(moveDirection);
 
-                rb.AddForce(sidewaysOnSlope(slopeDir , 5f) * speed * 5f, ForceMode.Force);
+                rb.AddForce(sidewaysOnSlope(slopeDir , 1f) * speed * 5f, ForceMode.Force);
 
                 ChainVars.UpdateDir(slopeDir);
 
@@ -873,7 +878,7 @@ public class Player : Entity
                 if (rb.velocity.y < 0.1f)
                 {
                 
-                    rb.AddForce(getSlopeDownDirection(Vector3.right,65f), ForceMode.Force);
+                    rb.AddForce(getSlopeDownDirection(65f), ForceMode.Force);
                 }
 
             }
@@ -890,26 +895,16 @@ public class Player : Entity
          rb.useGravity = !onSlope();
     }
 
-    public Vector3 getSlopeDownDirection(Vector3 actual_direction, float force)
+    public Vector3 getSlopeDownDirection( float force)
     {
-       /* if(horizontal != 0)
-        return Vector3.down * force + actual_direction * force / 3; */
-
+    
         return Vector3.down * force;
     }
 
     public Vector3 sidewaysOnSlope(Vector3 direction, float force)
     {
-      /*  if (horizontal != 0 && vertical != 0)
-            return direction + Vector3.right * horizontal  * force;
 
-        if (horizontal != 0 && vertical == 0)
-            return Vector3.right * force;
-
-        if (horizontal == 0 && vertical == 0)
-            return direction;*/
-
-        return direction;
+        return direction * force;
     }
 
     public void speedControl()
@@ -938,32 +933,32 @@ public class Player : Entity
         }
     }
 
-    //Temporarry saving system applied only to the player
+  
 
-    /* public void savePlayer()
-     {
-         SaveSystem.savePlayer(this);
-     }
+    public void loadEnity()
+    {
+        EntityData data = SaveSystem.load(ChainVars.saveID);
 
-     public void loadPlayer()
-     {
-         PlayerData data = SaveSystem.loadPlayer();
+        linq.health = data.helath;
 
-         LVL = data.level;
-         link.instance.health = data.helath;
+        Vector3 position;
 
-         Vector3 position;
-         position.x = data.position[0];
-         position.y = data.position[1];
-         position.z = data.position[2];
+        position.x = data.position[0];
 
-         transform.position = position;
-     }*/
+        position.y = data.position[1];
 
-    //  public Vector3 aimOffset = new Vector3(0, 2);
+        position.z = data.position[2];
 
-   
+        transform.position = position;
 
+        InventoryManager.instance.setInventoryItemsOnLoad(data.inventoryIDS);
+
+    }
+
+    public void saveEntity()
+    {
+        SaveSystem.save(this,ChainVars.saveID);
+    }
 
 
 }
