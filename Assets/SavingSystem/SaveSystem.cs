@@ -14,15 +14,19 @@ public static class SaveSystem
         paths[1] = "/saveFile2.txt"; 
     }
 
-    public static void save(Player player, int saveID)
+    public static void save(Entity currentEntity, int saveID)
     {
+        FileStream stream;
+
         BinaryFormatter formatter = new BinaryFormatter();
 
         string path = Application.persistentDataPath + paths[saveID];
 
-        FileStream stream = new FileStream(path, FileMode.Create);
+      
+         stream = new FileStream(path, FileMode.Create);
+       
 
-        EntityData data = new EntityData(player);
+        EntityData data = new EntityData(currentEntity);
 
         formatter.Serialize(stream, data);
 

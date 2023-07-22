@@ -40,7 +40,7 @@ public class GetKeybind : MonoBehaviour
 
     
 
-    public void Update()
+    public void controlUpdate()
     {
         if(!isAlreadyOnAButton)
         {

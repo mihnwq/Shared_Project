@@ -49,13 +49,19 @@ public class CameraMainBrain :MonoBehaviour
             if (!lockOn)
             {
                 map.updateNormalView();
+
+                map.distanceFromTarget = map.zoom(map.distanceFromTarget);
             }
             else if (lockOn)
             {
-                clo.lockOnUpdatepdate();
+                map.moveAroundPlayer(clo.smoothTime);
+
+                clo.overTheShoulderUpdate();
+
+                clo.distanceFromPlayer = map.zoom(clo.distanceFromPlayer);
             }
 
-            map.zoom();
+            
         }
         else
         {

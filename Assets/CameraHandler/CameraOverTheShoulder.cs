@@ -22,6 +22,8 @@ public class CameraOverTheShoulder : MonoBehaviour
 
     private Vector3 offset;
 
+    public float smoothTime = 0.002f;
+
     void Start()
     {
         offset = transform.position - player.position;
@@ -29,10 +31,10 @@ public class CameraOverTheShoulder : MonoBehaviour
 
     public bool foundTarget = false;
 
-    public void lockOnUpdatepdate()
+    public void overTheShoulderUpdate()
     {
-        
-        lockOntoEnemy();
+
+        overTheShoulder();
     }
 
   
@@ -41,11 +43,13 @@ public class CameraOverTheShoulder : MonoBehaviour
 
     public float rotationSpeed = 20f;
 
-    public void lockOntoEnemy()
-    {
-        rotate();
+    public float distanceFromPlayer;
 
-          transform.position =  (playerObj.position - transform.forward * 7f) + playerObj.right;
+    public void overTheShoulder()
+    {
+        
+
+          transform.position =  (playerObj.position - transform.forward * distanceFromPlayer) + returnRightDirection(playerObj.right);
 
       
         Vector3 cameraOffset = transform.position - playerObj.right;
@@ -58,39 +62,27 @@ public class CameraOverTheShoulder : MonoBehaviour
 
     }
 
-    private float mouseSensitivity = 3.0f;
-
-    private float rotationY;
-    private float rotationX;
-
-    //   private Vector3 currentRotation;
-
-    private Vector3 currentRotationCamera;
-    private Vector3 currentRotationPlayer;
-
-
     private Vector3 playerRotation;
 
-    private Vector3 smoothVelocity = Vector3.zero;
+    public float tolerance;
 
-    public void rotate()
+    public float maxMovingDistance;
+
+    private Vector3 directionToSave;
+
+    public Vector3 returnRightDirection(Vector3 vector)
     {
+        if (distanceFromPlayer < maxMovingDistance)
+        {
+            vector *= (distanceFromPlayer / tolerance);
+            directionToSave = vector;
+        }
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        rotationY += mouseX;
-
-        rotationX += mouseY;
-
-        rotationX = Mathf.Clamp(rotationX, -40, 40);
-
-        Vector3 nextRoationCamera = new Vector3(rotationX, rotationY);
-
-        currentRotationCamera = Vector3.SmoothDamp(currentRotationCamera, nextRoationCamera, ref smoothVelocity, 0.02f);
-
-        transform.localEulerAngles = currentRotationCamera;
+        return directionToSave;
     }
+
+   
 
 
     // Maybe i will use this in the future

@@ -934,31 +934,17 @@ public class Player : Entity
     }
 
   
-
-    public void loadEnity()
+    public void savePlayer()
     {
-        EntityData data = SaveSystem.load(ChainVars.saveID);
-
-        linq.health = data.helath;
-
-        Vector3 position;
-
-        position.x = data.position[0];
-
-        position.y = data.position[1];
-
-        position.z = data.position[2];
-
-        transform.position = position;
-
-        InventoryManager.instance.setInventoryItemsOnLoad(data.inventoryIDS);
-
+        saveEntity(this);
     }
 
-    public void saveEntity()
+    public void loadPlayer()
     {
-        SaveSystem.save(this,ChainVars.saveID);
+        loadEnity(this);
+
     }
+    
 
 
 }

@@ -8,6 +8,7 @@ TagManager:
   - player
   - MONSTER
   - knifeObject
+  - ground
   layers:
   - Default
   - TransparentFX

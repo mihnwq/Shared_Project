@@ -13,6 +13,10 @@ public class StateButton : MonoBehaviour
         SceneManager.LoadScene("Beta_Game");
 
         ChainVars.onTitle = false;
+
+        ChainVars.isPaused = false;
+
+        Time.timeScale = 1;
     }
 
     public void closeGame()

@@ -82,27 +82,11 @@ public class InventoryManager : MonoBehaviour
     public void setInventoryItemsOnLoad(int[] amount)
     {
 
-        for(int i = 0; i < amount.Length; i++)
-        {
-            if (amount[i] > 0)
-            {
-                amount[i] = 1;
-            }
-        }
-
-        inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
-
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            inventory[i].removeItem(items[i]);
-        }
-       
-
         for (int i = 0; i < amount.Length; i++)
         {
             if (amount[i] > 0)
             {
-               // add(currentInGameItems[i]);
+                add(currentInGameItems[i]);
             }
         }
 
@@ -117,7 +101,7 @@ public class InventoryManager : MonoBehaviour
     {
         //   inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
 
-        if (!pl.hasDied)
+        if (!pl.hasDied && !ChainVars.isPaused)
         {
 
             if (Input.GetKeyDown(KeyCode.I))

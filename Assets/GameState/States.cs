@@ -25,11 +25,10 @@ public class States : MonoBehaviour
 
     public void Start()
     {
-        optionCanvas = GameObject.Find("OptionScreen").GetComponent<Canvas>();
 
         optionCanvas.gameObject.SetActive(!optionCanvas.gameObject.activeSelf);
 
-        Time.timeScale = 1;
+   
 
      
     }

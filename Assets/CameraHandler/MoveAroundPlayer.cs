@@ -18,7 +18,7 @@ public class MoveAroundPlayer : MonoBehaviour
     private Transform target;
 
     [SerializeField]
-    private float distanceFromTarget = 5.0f;
+    public float distanceFromTarget = 5.0f;
 
     private Vector3 currentRoation;
     private Vector3 smoothVelocity  = Vector3.zero;
@@ -30,14 +30,15 @@ public class MoveAroundPlayer : MonoBehaviour
     private float minDistance = 3;
 
     [SerializeField]
-    private float smoothTime = 0.2f;
+    public float mapSmoothTime = 0.2f;
 
     private bool isColliding = false;
 
     PlayerOrbit po;
 
-    public float flyForce = 10f;
-    public float followForce = 5f;
+    public PreventCameraFromGoingIntoObjects pcfgio;
+
+    public ExtractDerivativeOf dv;
 
     public Rigidbody rb;
 
@@ -45,17 +46,22 @@ public class MoveAroundPlayer : MonoBehaviour
     {
         po = GetComponent<PlayerOrbit>();
 
+        dv = new ExtractDerivativeOf(0.2f, 0);
     }
 
    public void updateNormalView()
     {
-       moveAroundPlayer();
+       moveAroundPlayer(mapSmoothTime);
        po.OrbitUpdate();
     }
 
-    public void moveAroundPlayer()
+    public float minClampDown = -20f;
+
+    public void moveAroundPlayer(float smoothTime)
     {
-       
+
+        dv.updateLastValues(rotationX, 0);
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -63,7 +69,7 @@ public class MoveAroundPlayer : MonoBehaviour
 
         rotationX += mouseY;
 
-        rotationX = Mathf.Clamp(rotationX, -20, 40);
+        rotationX = Mathf.Clamp(rotationX, getMin(minClampDown), 40);
 
         Vector3 nextRoation = new Vector3(rotationX, rotationY);
 
@@ -72,8 +78,28 @@ public class MoveAroundPlayer : MonoBehaviour
         transform.localEulerAngles = currentRoation;
 
         getToPlayerPosition();
+
         
     }
+
+    public float tolerance;
+
+    public float getMin(float actualMin)
+    {
+       
+
+        if (transform.rotation.x < tolerance)
+        {
+            return 0;
+        }
+
+        
+           
+
+        return -20;
+    }
+
+    private Vector3 finalRotation;
 
     public void getToPlayerPosition()
     {
@@ -86,10 +112,24 @@ public class MoveAroundPlayer : MonoBehaviour
 
         Vector3 finalTarget = nextPosition + offset;
 
-        transform.position = finalTarget;
+        
+
+    //    if (!pcfgio.hit)
+            transform.position = finalTarget;
+     /*   else 
+        {
+            Vector3 absoluteVector = target.position - transform.forward * distanceFromTarget;
+
+            absoluteVector.y = Mathf.Abs(absoluteVector.y);
+
+            if(rotationY > 0)
+            transform.position = absoluteVector;
+
+
+        } */
     }
 
-    public void zoom()
+    public float zoom(float distanceFromTarget)
     {
         if (Input.GetAxis("Mouse ScrollWheel") < 0) // forward
         {
@@ -109,6 +149,8 @@ public class MoveAroundPlayer : MonoBehaviour
                 distanceFromTarget = minDistance;
             }
         }
+
+        return distanceFromTarget;
     }
 
     public void OnCollisionEnter(Collision collision)
