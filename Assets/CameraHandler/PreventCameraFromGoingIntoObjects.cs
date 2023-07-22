@@ -15,9 +15,7 @@ public class PreventCameraFromGoingIntoObjects : MonoBehaviour
 
     public void Update()
     {
-      //  purifiedPosition = transform.position.normalized;
-
-      //  Debug.Log(Mathf.Atan2(purifiedPosition.z + purifiedPosition.x, purifiedPosition.y));
+      
 
     }
 

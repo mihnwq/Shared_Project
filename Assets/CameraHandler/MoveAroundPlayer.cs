@@ -87,14 +87,10 @@ public class MoveAroundPlayer : MonoBehaviour
     public float getMin(float actualMin)
     {
        
-
         if (transform.rotation.x < tolerance)
         {
             return 0;
-        }
-
-        
-           
+        }     
 
         return -20;
     }
