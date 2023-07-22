@@ -5,7 +5,9 @@ using UnityEngine;
 //but i don't regret a second of it since every variable here it's being changed only once
 public class ChainVars
 {
-   
+
+    //Check on skill tree
+    public static bool onSkillTree= false;
 
     //public bool to handle the slope exit
     public static bool playerExitSlope = false;

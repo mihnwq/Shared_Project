@@ -75,20 +75,24 @@ public class Enemy : Entity
 
     public override void Update()
     {
+        base.Update();
 
-
-        if (!stunned)
-            enemyUpdate();
-        else
+        if (!hasDied)
         {
-            targetTransform.position = transform.position;
-        }
+            if (!stunned)
+                enemyUpdate();
+            else
+            {
+                switchOnAnimatiopn("isStunned");
+                targetTransform.position = transform.position;
+            }
+        } else switchOnAnimatiopn("died");
     }
 
     public void enemyUpdate()
     {
 
-        base.Update();
+       
 
           AI2();
 
@@ -109,10 +113,21 @@ public class Enemy : Entity
 
     public string currentAnimation, previousAnimation;
 
+    public void switchOnAnimatiopn(string animation)
+    {
+        previousAnimation = currentAnimation;
 
+        animator.SetBool(previousAnimation, false);
+
+        currentAnimation = animation;
+
+        animator.SetBool(currentAnimation, false);
+    }
 
     public void animate()
     {
+
+        //doesn't need to be as accurate as the boss's one to feel smooth
         previousAnimation = currentAnimation;
 
         if (isAttacking)
@@ -157,6 +172,7 @@ public class Enemy : Entity
         {
             if (isNearTarget())
             {
+                
                 actualTarget += randomTarget;
             }
 
@@ -166,6 +182,8 @@ public class Enemy : Entity
             }
             else
             {
+              
+
                 targetTransform.position = actualTarget;
             }
         }
@@ -199,6 +217,10 @@ public class Enemy : Entity
     public bool isNearTarget()
     {
         Vector3 nearPosition = transform.position - targetTransform.position;
+
+       
+        //remeber to change this to be calculated not 0
+        nearPosition.y = 0;
 
         return nearPosition.magnitude < 2f;
     }

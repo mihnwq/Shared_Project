@@ -192,39 +192,47 @@ public class Player : Entity
     {
         if (!hasDied)
         {
-
-            slope = onSlope();
-            if (!ChainVars.isPaused)
+            if (!ChainVars.onSkillTree)
             {
+                anim.SetBool("interactBrand", false);
 
-                if (!ChainVars.onInventory && !ChainVars.onTrade)
+                slope = onSlope();
+                if (!ChainVars.isPaused)
                 {
 
-
-                    checkGrounded();
-
-                    if (!pka.isKnocking)
-                        Move();
-
-                    checkCommands();
-
-                    base.Update();
+                    if (!ChainVars.onInventory && !ChainVars.onTrade)
+                    {
 
 
-                    updateStats();
+                        checkGrounded();
+
+                        if (!pka.isKnocking)
+                            Move();
+
+                        checkCommands();
+
+                        base.Update();
+
+
+                        updateStats();
+                    }
+                    else
+                    {
+                        getOnAnimation("isIdle");
+                    }
+
                 }
-                else
-                {
-                    getOnIdle();
-                }
 
+                ChainVars.UpdateOnSlope(onSlope());
+                ChainVars.playerExitSlope = playerExitSlope;
+                ChainVars.playerSliding = sd.sliding;
+
+                base.Update();
             }
-
-            ChainVars.UpdateOnSlope(onSlope());
-            ChainVars.playerExitSlope = playerExitSlope;
-            ChainVars.playerSliding = sd.sliding;
-
-            base.Update();
+            else
+            {
+                getOnAnimation("interactBrand");
+            }
         }
         else
         {
@@ -233,12 +241,12 @@ public class Player : Entity
         
     }
 
-    public void getOnIdle()
+    public void getOnAnimation(string animation)
     {
 
         previousAnimation = currentAnimation;
 
-        currentAnimation = "isIdle";
+        currentAnimation = animation;
 
         anim.SetBool(previousAnimation, false);
 

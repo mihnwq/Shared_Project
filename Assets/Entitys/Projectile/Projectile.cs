@@ -74,8 +74,8 @@ public class Projectile : Weapon
 
             Entity currentEntity = entity.GetComponent<Entity>();
 
-            //   transform.LookAt(currentEntity.centre.transform.position);
-            //  transform.position = Vector3.MoveTowards(transform.position, currentEntity.centre.transform.position, speed * Time.deltaTime);
+           //    transform.LookAt(currentEntity.transform.position + Vector3.up * 2);
+             // transform.position = Vector3.MoveTowards(transform.position, currentEntity.transform.position + Vector3.up * 2, speed * Time.deltaTime);
 
             PositionUsefull.setFullForwardTo(transform, currentEntity.centre.transform.position,-1);
 
@@ -87,10 +87,12 @@ public class Projectile : Weapon
     public override void OnTriggerEnter(Collider other)
     {
 
+        Debug.Log(gameObject);
+
             base.OnTriggerEnter(other);
 
       
-       if(other.gameObject.name != "HomingCenter")
+       if(other.gameObject.name != "HomingCenter" && !other.isTrigger)
           Destroy(actualProjectile);
 
        // Debug.Log(other.gameObject.name);

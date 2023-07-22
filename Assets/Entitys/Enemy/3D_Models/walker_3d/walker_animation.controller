@@ -99,7 +99,7 @@ AnimatorStateMachine:
     m_Position: {x: -130, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6841645917228193962}
-    m_Position: {x: 160.06653, y: 262.40784, z: 0}
+    m_Position: {x: 90, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3235308859423644832}
     m_Position: {x: -230, y: 10, z: 0}
@@ -152,7 +152,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: die
+    m_ConditionEvent: died
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3235308859423644832}
@@ -195,13 +195,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: die
+  - m_Name: isStunned
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isStunned
+  - m_Name: died
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
