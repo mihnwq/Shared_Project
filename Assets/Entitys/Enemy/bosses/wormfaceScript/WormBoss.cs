@@ -26,28 +26,56 @@ public class WormBoss : Enemy
 
         div = new ExtractDerivativeOf(lastTimeVal, 0.1f);
 
-        cycle = startingCycle;
-
-        lastCycle = cycle;
     }
 
     public new void Update()
     {
-       
-        
 
-        if (bossActive && !stunned)
+        if (health > 0)
+            hasDied = false;
+        else hasDied = true;
+
+        if (bossActive)
         {
-            div.updateLastValues(PositionUsefull.getVectorSum(transform.position),0);
+            if (!hasDied)
+            {
+                if (!stunned)
+                {
+                    div.updateLastValues(PositionUsefull.getVectorSum(transform.position), 0);
 
-            PositionUsefull.setForwardTo(transform, targetPosition.position, -1);
+                    PositionUsefull.setForwardTo(transform, targetPosition.position, -1);
 
-            bossAI();
+                    bossAI();
+                }
+
+            }
+            else
+            {
+                bossActive = false;
+                Player.instance.currentSkillPoints++;
+                setAnimationTo("died");
+
+                Invoke(nameof(destroyEnemy), 6f);
+            }
         }
             
     }
 
-    public int cycle;
+    public void setAnimationTo(string animation)
+    {
+        animator.SetBool("idle", false);
+        animator.SetBool("walking",false);
+
+        previousAnimation = currentAnimation;
+
+        animator.SetBool(previousAnimation, false);
+
+        currentAnimation = animation;
+
+        animator.SetBool(currentAnimation, true);
+    }
+
+    public int cycle = 1;
 
     public int maxCycle;
 
@@ -90,7 +118,7 @@ public class WormBoss : Enemy
         handleAnimations();
 
         
-            aoeSpikes.gameObject.SetActive(cycle == 5 && isAttacking);
+          //  aoeSpikes.gameObject.SetActive(cycle == 5 && isAttacking);
         
     }
 

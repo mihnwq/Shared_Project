@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
+
+    public GameObject aimRender;
 
     public link linq;
 
@@ -43,7 +46,7 @@ public class Player : Entity
 
     bool playerExitSlope = false;
 
-    public float currentSkillPoints = 0;
+    public int currentSkillPoints = 0;
 
     public Item knifeItem;
 
@@ -175,24 +178,12 @@ public class Player : Entity
           return point;
       }
 
-  /*  public override void updateAttackPoint()
-    {
-        if (state == movementState.crouching)
-        {
-            attackPoint.position = entityObj.forward + new Vector3(entityObj.position.x, entityObj.position.y + 2f, entityObj.position.z);
-        }
-        else
-        {
-            attackPoint.position = entityObj.forward + new Vector3(entityObj.position.x, entityObj.position.y + 3f, entityObj.position.z);
-        }
-    }*/
-
-    //end of aim related stuff for the first 2 camera positions
-
-    //don't touch here
+  
     public override void Update()
     {
-        if (!hasDied)
+        base.Update();
+
+        if (!hasDied )
         {
             if (!ChainVars.onSkillTree)
             {
@@ -229,7 +220,8 @@ public class Player : Entity
                 ChainVars.playerExitSlope = playerExitSlope;
                 ChainVars.playerSliding = sd.sliding;
 
-                base.Update();
+                gameOverScreen.SetActive(false);
+               
             }
             else
             {
@@ -238,10 +230,33 @@ public class Player : Entity
         }
         else
         {
-            die();
+            getOnAnimation("ded");
+           
+            Invoke(nameof(atributeGameOverScreen), dyingDuration);
+            
         }
         
     }
+
+    public GameObject gameOverScreen;
+
+    public void onTryAgainClick()
+    {
+        gameOverScreen.gameObject.SetActive(hasDied);
+
+      
+
+        getOnAnimation("isIdle");
+
+        SaveSystem.load(ChainVars.saveID);
+    }
+
+    public void atributeGameOverScreen()
+    {
+        gameOverScreen.gameObject.SetActive(hasDied);
+    }
+
+    public float dyingDuration;
 
     public void getOnAnimation(string animation)
     {
@@ -255,23 +270,12 @@ public class Player : Entity
         anim.SetBool(currentAnimation, true);
     }
 
-    public void die()
-    {
-        previousAnimation = currentAnimation;
-
-        currentAnimation = "ded";
-
-        anim.SetBool(previousAnimation, false);
-
-        anim.SetBool(currentAnimation, true);
-    }
+   
 
     //don't touch here
     public void Move()
     {
         updateAxis(CustomInputManager.GetAxisRaw("Horizontal"), CustomInputManager.GetAxisRaw("Vertical"));
-
-       // updateAxis(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (!dashing)
         {
@@ -309,7 +313,7 @@ public class Player : Entity
 
         updateAimObject();
 
-       // handleThrows();
+        handleThrows();
     }
 
     public void handleThrows()
@@ -379,7 +383,7 @@ public class Player : Entity
     {
         if (drainStates())
         {
-            if (dashing)
+            if (dashing && SkillKeeper.gatheredEyeFrames)
             {
                 stamina = Mathf.Lerp(stamina, 0, (staminaDrainSpeed * 4) * Time.deltaTime);
             }
@@ -394,10 +398,7 @@ public class Player : Entity
             
             regenCooldownTimer = staminaRegenCooldown; // Start the cooldown after draining stamina
         }
-       /* else
-        {
-            lastStamina = stamina;
-        }*/
+     
     }
 
 
@@ -408,7 +409,7 @@ public class Player : Entity
 
     public bool drainStates()
     {
-        return pt.throwing || isAttacking || dashing || state == movementState.sprinting;
+        return pt.throwing || isAttacking || (dashing && SkillKeeper.gatheredEyeFrames) || state == movementState.sprinting;
     }
 
     //don't touch here
@@ -417,12 +418,12 @@ public class Player : Entity
 
       
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && state != movementState.air)
+        if (Input.GetKeyDown(optionsValues.crouchKey) && state != movementState.air)
         {          
                 cr.crouch();                      
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(optionsValues.crouchKey))
         {              
                 cr.normalize();
         }
@@ -450,13 +451,13 @@ public class Player : Entity
         {
 
 
-            if (Input.GetKey(KeyCode.R))
+            if (Input.GetKey(optionsValues.rangedAttacKey))
             {
               
                 playerProjectile.charge(maxChargeLevel, chargeTime);
             }
 
-            if(Input.GetKeyUp(KeyCode.R))
+            if(Input.GetKeyUp(optionsValues.rangedAttacKey))
             {
                     
                 playerProjectile.execute();
@@ -477,7 +478,7 @@ public class Player : Entity
     //don't touch here
     public void checkJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && canJump())
+        if (Input.GetKeyDown(optionsValues.jumpKey) && readyToJump && canJump())
         {
                 playerExitSlope = true;
 
@@ -506,12 +507,12 @@ public class Player : Entity
     //don't touch here
     public void checkSlide()
     {
-        if (Input.GetKeyDown(KeyCode.F) && canSlide())
+        if (Input.GetKeyDown(optionsValues.slideKey) && canSlide())
         {
             sd.startSliding();
         }
         
-        if (Input.GetKeyUp(KeyCode.F) && sd.sliding)
+        if (Input.GetKeyUp(optionsValues.slideKey) && sd.sliding)
         {
             sd.stopSlide();
         }
@@ -757,6 +758,7 @@ public class Player : Entity
             pt.init();
         }
 
+        aimRender.gameObject.SetActive(view == cameraStates.overTheShoulder);
     }
 
     public bool addDrag()
@@ -849,29 +851,23 @@ public class Player : Entity
     {
         checkedLocked();
 
-     //   Transform directionTransform;
-
         if (!sd.sliding)
         {
 
             if (isLocked)
             {
-                return PositionUsefull.getObjectNextDirection(entityObj, vertical, horizontal); //entityObj.forward * vertical + entityObj.right * horizontal;
+                return PositionUsefull.getObjectNextDirection(entityObj, vertical, horizontal); 
             }
         }
 
-        return PositionUsefull.getObjectNextDirection(orientation, vertical, horizontal); // orientation.forward * vertical + orientation.right * horizontal;
+        return PositionUsefull.getObjectNextDirection(orientation, vertical, horizontal); 
     }
 
     public void playerMovement()
     {
 
-
         moveDirection = getMoveDirection();
 
-
-
-       
             if (onSlope() && !playerExitSlope)
             {
 
@@ -882,17 +878,13 @@ public class Player : Entity
                 rb.AddForce(sidewaysOnSlope(slopeDir , 1f) * speed * 7f, ForceMode.Force);
 
                 ChainVars.UpdateDir(slopeDir);
-
-                
-
+              
                 if (rb.velocity.y < 0.1f)
-                {
-                
+                {            
                     rb.AddForce(getSlopeDownDirection(35f), ForceMode.Force);
                 }
 
             }
-        
        
         if (grounded)
             rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
@@ -907,13 +899,11 @@ public class Player : Entity
 
     public Vector3 getSlopeDownDirection( float force)
     {
-    
         return Vector3.down * force;
     }
 
     public Vector3 sidewaysOnSlope(Vector3 direction, float force)
     {
-
         return direction * force;
     }
 
@@ -921,17 +911,13 @@ public class Player : Entity
     {
 
         if (onSlope() && !playerExitSlope)
-        {
-
-     
+        {     
 
             if (rb.velocity.magnitude > speed)
                 rb.velocity = rb.velocity.normalized * speed;
         }
         else
-        {
-           
-
+        {         
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             if (flatVel.magnitude > speed)
@@ -944,17 +930,6 @@ public class Player : Entity
     }
 
   
-    public void savePlayer()
-    {
-        saveEntity(this);
-    }
-
-    public void loadPlayer()
-    {
-        loadEnity(this);
-
-    }
-    
 
 
 }

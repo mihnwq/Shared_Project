@@ -32,13 +32,12 @@ public class optionsValues : MonoBehaviour
 
     public static KeyCode meleAttackKey;
 
-
-   /* public static optionsValues instance;
-
     public void Awake()
     {
-        instance = this;
-    }*/
+        //   getButtons();
+
+        ChainVars.isPaused = true;
+    }
 
     public void getButtons()
     {
@@ -89,7 +88,9 @@ public class optionsValues : MonoBehaviour
 
     public void Start()
     {
-      //  getButtons();
+        getButtons();
+
+        
     }
 
     public void Update()

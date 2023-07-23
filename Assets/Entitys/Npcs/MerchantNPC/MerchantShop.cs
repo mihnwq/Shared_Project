@@ -22,6 +22,8 @@ public class MerchantShop : MonoBehaviour
 
     public GameObject mainItem;
 
+ 
+
 
    public void loadShopItems(List<Item> merchantInventory)
     {

@@ -17,12 +17,12 @@ public class GetKeybind : MonoBehaviour
     public void Awake()
     {
         instance = this;
+
+      //  initButtons();
     }
 
-    public void Start()
+    public void initButtons()
     {
-
-
         foreach (var button in buttons)
         {
 
@@ -32,6 +32,13 @@ public class GetKeybind : MonoBehaviour
 
             keyCodes.Add(button.key);
         }
+    }
+
+    public void Start()
+    {
+
+        initButtons();
+       
     }
 
    public bool isAlreadyOnAButton;

@@ -48,7 +48,7 @@ public class States : MonoBehaviour
             states = GameStates.ON_GAME;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(optionsValues.pauseKey))
         {
             switch (states)
             {
@@ -62,7 +62,7 @@ public class States : MonoBehaviour
 
                     switchGameState(true);
 
-                    ChainVars.isPaused = true;
+
 
                     optionCanvas.gameObject.SetActive(!optionCanvas.gameObject.activeSelf);
 
@@ -74,13 +74,15 @@ public class States : MonoBehaviour
 
                     switchGameState(false);
 
-                    ChainVars.isPaused = false;
+               
 
                     optionCanvas.gameObject.SetActive(!optionCanvas.gameObject.activeSelf);
 
                     break;
             }
         }
+
+        ChainVars.isPaused = states == GameStates.PAUSED;
 
         sfx.soundUpdate();
     }

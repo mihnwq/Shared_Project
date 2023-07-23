@@ -54,7 +54,7 @@ public class CameraMainBrain :MonoBehaviour
             }
             else if (lockOn)
             {
-                map.moveAroundPlayer(clo.smoothTime);
+                map.moveAroundPlayer(clo.smoothTime,clo.smallestClampDown);
 
                 clo.overTheShoulderUpdate();
 

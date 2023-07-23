@@ -79,18 +79,43 @@ public class InventoryManager : MonoBehaviour
         setItems();
     }
 
+    //Inefficcinet atm
     public void setInventoryItemsOnLoad(int[] amount)
     {
-
-        for (int i = 0; i < amount.Length; i++)
+        if (amount != this.amount)
         {
-            if (amount[i] > 0)
-            {
-                add(currentInGameItems[i]);
-            }
-        }
+            inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
 
-        this.amount = amount;
+            for (int i = 0; i < inventory.Length; i++)
+            {
+
+
+                inventory[i].destroyItem();
+            }
+
+
+            Array.Clear(inventory, 0, inventory.Length);
+
+            inventory = Array.Empty<InventoryUseHandler>();
+
+            items.Clear();
+
+            Array.Clear(this.amount, 0, this.amount.Length);
+
+
+            Debug.Log(inventory.Length);
+
+            for (int i = 0; i < amount.Length; i++)
+            {
+                if (amount[i] > 0)
+                {
+
+                    add(currentInGameItems[i]);
+                }
+            }
+
+            this.amount = amount;
+        }
     }    
 
    public GameObject inv;
@@ -99,7 +124,7 @@ public class InventoryManager : MonoBehaviour
 
     public void Update()
     {
-        //   inventory = itemContent.GetComponentsInChildren<InventoryUseHandler>();
+        
 
         if (!pl.hasDied && !ChainVars.isPaused)
         {

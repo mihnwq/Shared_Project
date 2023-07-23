@@ -20,13 +20,13 @@ public class CameraOverTheShoulder : MonoBehaviour
 
     public Transform playerObj;
 
-    private Vector3 offset;
+    public float smallestClampDown = -3;
 
-    public float smoothTime = 0.002f;
+    public float smoothTime = 0.2f;
 
     void Start()
     {
-        offset = transform.position - player.position;
+      
     }
 
     public bool foundTarget = false;

@@ -32,6 +32,7 @@ public class PlayerKnockBackAttack : MonoBehaviour
 
             currentKnockAnimationDuration = knowckAnimationDuration;
 
+            if(SkillKeeper.unlockedFuriousKick)
             Invoke(nameof(initiateKnockBack), delayedKnowckBack);
         }
 

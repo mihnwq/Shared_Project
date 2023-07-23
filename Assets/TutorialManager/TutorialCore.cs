@@ -67,14 +67,17 @@ public class TutorialCore : MonoBehaviour
                         break;
                 case 9:
                     if (Input.GetKeyDown(KeyCode.T))
-                        popUpIndex = 10;
+                    {
+                        Invoke(nameof(stoppedStunnin), 2f);
+                    }
+                        
                     break;
                 case 10:
-                    if (end.END.died())
+                    if (!spawner[0].gameObject.activeSelf)
                         popUpIndex = 11;
                     break;
                 case 11:
-                    if (InventoryUseHandler.instance.used)
+                    if (!InventoryManager.instance.canUsePostion)
                         popUpIndex = 12;
                     break;
             }
@@ -114,6 +117,12 @@ public class TutorialCore : MonoBehaviour
 
         }
     }
+
+    public void stoppedStunnin()
+    {
+        popUpIndex = 10;
+    }
+
     public bool oneKnife = true;
 
     public bool oneMonster = true;

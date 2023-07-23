@@ -35,33 +35,36 @@ public class Dashing : MonoBehaviour
 
     public void dashUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.C) && currentDashCount > 0)
+        if(Input.GetKeyDown(optionsValues.dashKey) && currentDashCount > 0)
         {
             Dash();
 
+            if(!SkillKeeper.gatheredEyeFrames)
             useDash();
         }
-
-      
-
-
-        if (dashCdTimer > 0)
-            dashCdTimer -= Time.deltaTime;
-
-        if (timeToRechargeDash > 0)
-            timeToRechargeDash -= Time.deltaTime;
 
         //remember to use the axis from the player
         vertical = CustomInputManager.GetAxisRaw("Vertical");
 
         horizontal = CustomInputManager.GetAxisRaw("Horizontal");
 
-        if (currentDashCount < maxDashCounter)
-            if (timeToRechargeDash <= 0)
-                rechargeDash();
+        
+        if (dashCdTimer > 0)
+            dashCdTimer -= Time.deltaTime;
 
-        if (currentDashCount > maxDashCounter)
-            currentDashCount = maxDashCounter;
+        if (!SkillKeeper.gatheredEyeFrames)
+        {
+            if (timeToRechargeDash > 0)
+                timeToRechargeDash -= Time.deltaTime;
+
+
+            if (currentDashCount < maxDashCounter)
+                if (timeToRechargeDash <= 0)
+                    rechargeDash();
+
+            if (currentDashCount > maxDashCounter)
+                currentDashCount = maxDashCounter;
+        }
     }
 
     public void rechargeDash()
@@ -92,6 +95,8 @@ public class Dashing : MonoBehaviour
         }
         
         pl.dashing = true;
+
+        if(SkillKeeper.gatheredEyeFrames)
         pl.hasEyeFrames = true;
 
         Vector3 dashDirection;
@@ -99,7 +104,7 @@ public class Dashing : MonoBehaviour
         if(ChainVars.playerIsLocked)
         {
             Vector3 direction = PositionUsefull.getObjectNextDirection(playerObj, vertical, horizontal);
-            //playerObj.forward * vertical + playerObj.right * horizontal;
+         
 
 
             if (direction != Vector3.zero)

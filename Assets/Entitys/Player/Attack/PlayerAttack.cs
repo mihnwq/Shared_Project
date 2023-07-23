@@ -120,9 +120,7 @@ public class PlayerAttack : EntityAttack
         }
 
 
-        
-     //   if(numberOfClicks == 0)
-       // animator.SetBool(attackAnimations[numberOfClicks], true);
+    
     }
 
     public float maxKnockDuration;
@@ -133,29 +131,6 @@ public class PlayerAttack : EntityAttack
         return ChainVars.isPaused || ChainVars.onInventory || ChainVars.onTrade;
     }
 
-
-    //I pretty much abandonde the idea, and how tf is abandon written
-
-  /*  //used in case animations snap in place
-    public bool useTolerance = false;
-
-    public float toleranceValue;
-
-    public bool enabledTolerance = false;
-
-    public void handleTolerance()
-    {
-        if (!isAttacking && numberOfClicks != 3 && expireTime < toleranceValue)
-        {
-            animator.SetBool(toleranceString, true);
-            animator.SetBool(attackAnimations[0], false);
-        }
-
-        enabledTolerance = animator.GetBool(toleranceString);
-
-        if(enabledTolerance)
-        Invoke(nameof(resetCombo), toleranceValue / 2);
-    }*/
 
     public void initiateAttack()
     {

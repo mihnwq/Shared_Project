@@ -5,7 +5,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
-{ 
+{
+    public int ID;
+
    public float health;
    public float speed;
 
@@ -102,6 +104,7 @@ public class Entity : MonoBehaviour
    {
         if (health <= 0)
             hasDied = true;
+        else hasDied = false;
 
        // updateAttackPoint();
         
@@ -188,52 +191,13 @@ public class Entity : MonoBehaviour
         ChainVars.playerSlopeForwardDir = Vector3.ProjectOnPlane(entityObj.forward, slopeHit.normal).normalized;
     }
 
-    public void loadEnity( Entity entity)
-    {
-        EntityData data = SaveSystem.load(ChainVars.saveID);
-
-        entity.health = data.helath;
-
-        Vector3 position;
-
-        position.x = data.position[0];
-
-        position.y = data.position[1];
-
-        position.z = data.position[2];
-
-        entity.transform.position = position;
-
-        InventoryManager.instance.setInventoryItemsOnLoad(data.inventoryIDS);
-
-    }
-
-    public void saveEntity(Entity entity)
-    {
-        SaveSystem.save(entity, ChainVars.saveID);
-    }
-    /*
-        public void saveAndLoad(bool save)
-        {
-            Entity[] entities = FindObjectsOfType<Entity>();
-
-
-            foreach (Entity entity in entities)
-            {
-
-                if (save)
-                    saveEntity(entity);
-                else
-                {
-                    loadEnity(entity);
-                }
-            }
-        }*/
+  
 
     public static Entity instance;
 
     public void Awake()
     {
+       
         instance = this;
     }
 }

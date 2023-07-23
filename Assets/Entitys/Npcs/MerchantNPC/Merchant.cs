@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public class Merchant : BasicNpc, IInteractible
@@ -20,7 +21,7 @@ public class Merchant : BasicNpc, IInteractible
     {
         
     }
-
+    public TextMeshProUGUI currency;
     public string[] animations = new string[5];
 
     public void Start()
@@ -54,7 +55,10 @@ public class Merchant : BasicNpc, IInteractible
                       shop.loadShopItems(currentMerchantShop);
                   }
               }
-          }
+
+            if (ChainVars.onTrade)
+                currency.text = Player.instance.currency.ToString();
+}
           else
         {
             setOneTrueOneFalse(0, 3);

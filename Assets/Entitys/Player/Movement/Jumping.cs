@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Jumping
 {
-    public float jumpForce = 7f;
+    public float jumpForce = 8f;
 
     public float extendedJumpForce = 11f;
 

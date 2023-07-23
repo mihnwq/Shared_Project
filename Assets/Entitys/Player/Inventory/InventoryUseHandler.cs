@@ -40,6 +40,11 @@ public class InventoryUseHandler : MonoBehaviour
       
     }
 
+    public void destroyItem()
+    {
+        Destroy(gameObject);
+    }
+
     public void addItem(Item newItem)
     {
         item = newItem;

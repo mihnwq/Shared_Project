@@ -86,7 +86,13 @@ public class Enemy : Entity
                 switchOnAnimatiopn("isStunned");
                 targetTransform.position = transform.position;
             }
-        } else switchOnAnimatiopn("died");
+        }
+        else { switchOnAnimatiopn("died"); Invoke(nameof(destroyEnemy), 3f); }
+    }
+
+    public void destroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
     public void enemyUpdate()

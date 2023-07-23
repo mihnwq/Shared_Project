@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChainVars
 {
 
+    public static bool wantToPlayTutorial = false;
+
     //Check on skill tree
     public static bool onSkillTree= false;
 

@@ -1,11 +1,17 @@
-using UnityEngine;
+
+using Pathfinding;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEditor.SceneTemplate;
+using UnityEngine;
 
 public static class SaveSystem 
 {
 
-    static string[] paths = new string[10];
+   public static string[] paths = new string[10];
 
     public static void initializePaths()
     {
@@ -14,51 +20,85 @@ public static class SaveSystem
         paths[1] = "/saveFile2.txt"; 
     }
 
-    public static void save(Entity currentEntity, int saveID)
+   
+
+    public static void save(int saveID)
     {
-        FileStream stream;
+        Entity[] entities = Object.FindObjectsOfType<Entity>();
 
-        BinaryFormatter formatter = new BinaryFormatter();
+        float[] health = new float[entities.Length];
 
-        string path = Application.persistentDataPath + paths[saveID];
+        Vector3[] positions = new Vector3[entities.Length];
 
-      
-         stream = new FileStream(path, FileMode.Create);
-       
+        foreach (Entity entity in entities)
+        {
+            if (entity.GetType() != typeof(link))
+            {
+                health[entity.ID] = entity.health;
 
-        EntityData data = new EntityData(currentEntity);
+                positions[entity.ID] = entity.transform.position;
+            }
+        }
 
-        formatter.Serialize(stream, data);
+        EntityStats stats = new EntityStats
+        {
+            health = health,
+            positions = positions,
+            amount = InventoryManager.instance.amount,
+            currency = Player.instance.currency,
+            skillPoints = Player.instance.currentSkillPoints
+        };
 
-        stream.Close();
+        string json = JsonUtility.ToJson(stats);
+
+        File.WriteAllText(Application.persistentDataPath + paths[saveID], json);
     }
 
-    public static EntityData load(int saveID)
+    public static void load(int saveID)
     {
-        string path = Application.persistentDataPath + paths[saveID];
-
-        if (File.Exists(path))
+        if(File.Exists(Application.persistentDataPath + paths[saveID]))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            Entity[] entities = Object.FindObjectsOfType<Entity>();
 
-            FileStream stream = new FileStream(path, FileMode.Open);
+            string saveString = File.ReadAllText(Application.persistentDataPath + paths[saveID]);
 
-            EntityData data = formatter.Deserialize(stream) as EntityData;
-            stream.Close();
+            EntityStats stats = JsonUtility.FromJson<EntityStats>(saveString);
 
-            return data;
+            foreach (Entity entity in entities)
+            {
+                if (stats.health[entity.ID] != 0 || stats.positions[entity.ID] != Vector3.zero)
+                {
+                    if (entity.GetType() != typeof(Player))
+                        entity.health = stats.health[entity.ID];
+                    else Player.instance.linq.health = stats.health[entity.ID];
+
+                    entity.transform.position = stats.positions[entity.ID];
+                }
+            }
+
+        //    InventoryManager.instance.setInventoryItemsOnLoad(stats.amount);
+            Player.instance.currency = stats.currency;
+            Player.instance.currentSkillPoints = stats.skillPoints;
         }
         else
         {
-            Debug.Log("No save file has been found in " + path + "!");
+            Debug.Log("No save file has been found in " + paths[saveID] + "!");
+        }
 
-            return null;
-        }  
 
-        
+    }
 
-       
+    private class EntityStats
+    {
+      public float[] health;
 
+     public Vector3[] positions;
+
+        public int[] amount;
+
+        public int currency;
+
+        public int skillPoints;
     }
 
 }

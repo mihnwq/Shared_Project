@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class SkillKeeper : MonoBehaviour
 {
@@ -42,6 +43,13 @@ public class SkillKeeper : MonoBehaviour
     {
         instance = this;
 
+    }
+
+    public TextMeshProUGUI amount;
+
+    public void Update()
+    {
+        amount.text = Player.instance.currentSkillPoints.ToString();
     }
 
     public static void un_enableSkill(bool skill, bool enable)

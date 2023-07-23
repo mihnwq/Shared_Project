@@ -17,6 +17,20 @@ public class CustomInputManager : MonoBehaviour
     private static float horizontalAxisValue = 0f;
     private static float verticalAxisValue = 0f;
 
+    public void Start()
+    {
+        getWalkingButtons();
+    }
+
+    public void getWalkingButtons()
+    {
+        horizontalPositiveKey = optionsValues.rightKey;
+        horizontalNegativeKey = optionsValues.leftKey;
+
+        verticalPositiveKey = optionsValues.forwardKey;
+        verticalNegativeKey = optionsValues.backwardsKey;
+    }
+
     private void Update()
     {
         
@@ -47,14 +61,11 @@ public class CustomInputManager : MonoBehaviour
             verticalAxisValue = 0f;
         }
 
-     /*   if(ChainVars.isPaused)
+        if(ChainVars.isPaused)
         {
-            horizontalPositiveKey = optionsValues.rightKey;
-            horizontalNegativeKey = optionsValues.leftKey;
-
-            verticalPositiveKey = optionsValues.forwardKey;
-            verticalPositiveKey = optionsValues.backwardsKey;
-        }*/
+            getWalkingButtons();
+        }
+        
     }
 
     public static float GetAxisRaw(string axisName)

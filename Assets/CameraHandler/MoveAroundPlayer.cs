@@ -36,7 +36,7 @@ public class MoveAroundPlayer : MonoBehaviour
 
     PlayerOrbit po;
 
-    public PreventCameraFromGoingIntoObjects pcfgio;
+    public float smallestClampDown = 0;
 
     public ExtractDerivativeOf dv;
 
@@ -51,13 +51,13 @@ public class MoveAroundPlayer : MonoBehaviour
 
    public void updateNormalView()
     {
-       moveAroundPlayer(mapSmoothTime);
+       moveAroundPlayer(mapSmoothTime,smallestClampDown);
        po.OrbitUpdate();
     }
 
     public float minClampDown = -20f;
 
-    public void moveAroundPlayer(float smoothTime)
+    public void moveAroundPlayer(float smoothTime,float smallestClampDown)
     {
 
         dv.updateLastValues(rotationX, 0);
@@ -69,7 +69,7 @@ public class MoveAroundPlayer : MonoBehaviour
 
         rotationX += mouseY;
 
-        rotationX = Mathf.Clamp(rotationX, getMin(minClampDown), 40);
+        rotationX = Mathf.Clamp(rotationX, getMin(rotationX,rotationY,minClampDown,smallestClampDown), 40);
 
         Vector3 nextRoation = new Vector3(rotationX, rotationY);
 
@@ -84,15 +84,17 @@ public class MoveAroundPlayer : MonoBehaviour
 
     public float tolerance;
 
-    public float getMin(float actualMin)
+    public float getMin(float x,float y,float actualMin,float smallestClampDown)
     {
-       
-        if (transform.rotation.x < tolerance)
+    //  Debug.Log( ( Mathf.Atan2(x, y) * Mathf.Rad2Deg ) / 2);
+
+        //Checks if the camera is not close on being parralel with the terrian so it won't go into it.
+        if (Mathf.Atan2(x,y) < tolerance)
         {
-            return 0;
+            return smallestClampDown;
         }     
 
-        return -20;
+        return actualMin;
     }
 
     private Vector3 finalRotation;
@@ -110,19 +112,9 @@ public class MoveAroundPlayer : MonoBehaviour
 
         
 
-    //    if (!pcfgio.hit)
+    
             transform.position = finalTarget;
-     /*   else 
-        {
-            Vector3 absoluteVector = target.position - transform.forward * distanceFromTarget;
-
-            absoluteVector.y = Mathf.Abs(absoluteVector.y);
-
-            if(rotationY > 0)
-            transform.position = absoluteVector;
-
-
-        } */
+    
     }
 
     public float zoom(float distanceFromTarget)

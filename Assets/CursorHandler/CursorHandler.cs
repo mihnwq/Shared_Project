@@ -17,7 +17,7 @@ public class CursorHandler : MonoBehaviour
 
     public bool checkLock()
     {
-        return ChainVars.isPaused || ChainVars.onTrade || ChainVars.onInventory || ChainVars.onSkillTree; 
+        return ChainVars.isPaused || ChainVars.onTrade || ChainVars.onInventory || ChainVars.onSkillTree || Player.instance.hasDied; 
     }
     
     void Update()
