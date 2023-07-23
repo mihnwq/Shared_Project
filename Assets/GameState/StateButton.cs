@@ -10,7 +10,7 @@ public class StateButton : MonoBehaviour
     public void switchToMainGame()
     {
        
-        SceneManager.LoadScene("Beta_Game");
+        SceneManager.LoadScene("LoasScene");
 
         ChainVars.onTitle = false;
 
