@@ -5639,7 +5639,7 @@ MonoBehaviour:
   jumpCooldown: 2
   readyToJump: 1
   moveSpeed: 2.5
-  sprintSpeed: 3.5
+  sprintSpeed: 5.5
   slideSpeed: 7
   dashSpeed: 10
   stamina: 100
@@ -5647,6 +5647,7 @@ MonoBehaviour:
   crouchSpeed: 1.5
   dashSpeedChangeFacotr: 50
   anim: {fileID: 344313553}
+  currentSkillPoints: 0
   knifeItem: {fileID: 11400000, guid: 43260e3ee5d8710499c9ecd4c9f643b2, type: 2}
   pt: {fileID: 344313551}
   ps: {fileID: 344313557}
@@ -5778,7 +5779,7 @@ MonoBehaviour:
   attackString: isAttacking
   toleranceString: tolerance
   lateAttackTime: 0.1
-  maxKnockDuration: 0
+  maxKnockDuration: 4.12
 --- !u!114 &344313555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8355,7 +8356,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.596
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -23749,7 +23750,7 @@ MonoBehaviour:
   isKnocking: 0
   hitID: MONSTER
   wielder: {fileID: 344313550}
-  knockForce: 35
+  knockForce: 765.81
   onlyOnce: 0
   knockingTime: 0
   maxKnockingTime: 1.1
@@ -26121,7 +26122,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.386891e+30, z: 4.46e-43, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 0, z: 0, w: 1.8660653e+26}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -31864,17 +31865,17 @@ PrefabInstance:
     - target: {fileID: 5371323736120423907, guid: 389262a991599134bbdf23352ba7ddd7,
         type: 3}
       propertyPath: m_Drag
-      value: 13.3
+      value: 9.01
       objectReference: {fileID: 0}
     - target: {fileID: 5371323736120423907, guid: 389262a991599134bbdf23352ba7ddd7,
         type: 3}
       propertyPath: m_Mass
-      value: 10.89
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 5371323736120423907, guid: 389262a991599134bbdf23352ba7ddd7,
         type: 3}
       propertyPath: m_AngularDrag
-      value: 14.21
+      value: 13.7
       objectReference: {fileID: 0}
     - target: {fileID: 5371323736120423907, guid: 389262a991599134bbdf23352ba7ddd7,
         type: 3}
@@ -31921,9 +31922,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1816170590, guid: 5a7dd2740154f574c85cf94b76a7e609, type: 3}
+      propertyPath: time
+      value: 2.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816170590, guid: 5a7dd2740154f574c85cf94b76a7e609, type: 3}
       propertyPath: tree
       value: 
       objectReference: {fileID: 1826497838}
+    - target: {fileID: 1816170590, guid: 5a7dd2740154f574c85cf94b76a7e609, type: 3}
+      propertyPath: minDistance
+      value: 1.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816170591, guid: 5a7dd2740154f574c85cf94b76a7e609, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816170591, guid: 5a7dd2740154f574c85cf94b76a7e609, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5933931199839158419, guid: 5a7dd2740154f574c85cf94b76a7e609,
         type: 3}
       propertyPath: m_Name

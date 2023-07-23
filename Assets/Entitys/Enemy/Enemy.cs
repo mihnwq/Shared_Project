@@ -121,7 +121,7 @@ public class Enemy : Entity
 
         currentAnimation = animation;
 
-        animator.SetBool(currentAnimation, false);
+        animator.SetBool(currentAnimation, true);
     }
 
     public void animate()
@@ -220,9 +220,9 @@ public class Enemy : Entity
 
        
         //remeber to change this to be calculated not 0
-        nearPosition.y = 0;
+        nearPosition.y = transform.position.normalized.y;
 
-        return nearPosition.magnitude < 2f;
+        return nearPosition.magnitude < nearTargetDistance;
     }
 
 

@@ -43,6 +43,8 @@ public class Player : Entity
 
     bool playerExitSlope = false;
 
+    public float currentSkillPoints = 0;
+
     public Item knifeItem;
 
     Jumping jump;
@@ -877,7 +879,7 @@ public class Player : Entity
 
                 Vector3 slopeDir = getSlopeMovementDir(moveDirection);
 
-                rb.AddForce(sidewaysOnSlope(slopeDir , 1f) * speed * 5f, ForceMode.Force);
+                rb.AddForce(sidewaysOnSlope(slopeDir , 1f) * speed * 7f, ForceMode.Force);
 
                 ChainVars.UpdateDir(slopeDir);
 
@@ -886,7 +888,7 @@ public class Player : Entity
                 if (rb.velocity.y < 0.1f)
                 {
                 
-                    rb.AddForce(getSlopeDownDirection(65f), ForceMode.Force);
+                    rb.AddForce(getSlopeDownDirection(35f), ForceMode.Force);
                 }
 
             }

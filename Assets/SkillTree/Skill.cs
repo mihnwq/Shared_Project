@@ -21,6 +21,8 @@ public class Skill : MonoBehaviour
 
     public Skill skillThatCancelsThisSkill;
 
+    private int skillCost = 1;
+
     public enum Type
     {
         giveEyeFrames,
@@ -54,7 +56,7 @@ public class Skill : MonoBehaviour
     {
         if (!unlocked)
         {
-            if (parent == null || parent.unlocked)
+            if (parent == null || parent.unlocked && Player.instance.currentSkillPoints > 1)
             {
 
 
@@ -62,6 +64,8 @@ public class Skill : MonoBehaviour
 
                 unlocked = true;
                 enable = true;
+
+                Player.instance.currentSkillPoints--;
             }
         }
         else
